@@ -1,0 +1,93 @@
+<resources>
+    <string name="app_name">Mobile App</string>
+    <string name="toolbar_name_grades_average">Grades Average</string>
+    <string name="toolbar_name_phones_database_app">Phone Database</string>
+
+    <!--activity_main-->
+    <string name="app_name_grades_average">Calculate the Grades Average</string>
+    <string name="app_name_phones_database">Database of Mobile Phones</string>
+    <string name="app_name_placeholder1">Placeholder</string>
+    <string name="app_name_placeholder2">Placeholder2</string>
+    <!--activity_main-->
+
+    <!--activity_grades_form-->
+    <string name="label_grades_name">Name:</string>
+    <string name="label_grades_surname">Surname:</string>
+    <string name="label_grades_amount">Number of grades:</string>
+    <string name="button_grades_proceed">Grades</string>
+    <string name="button_grades_passed">Great :)</string>
+    <string name="button_grades_failed">I didn\'t make it this time</string>
+    <string name="error_grades_name_input_incorrect">Entered name is invalid</string>
+    <string name="error_grades_surname_input_incorrect">Entered surname is invalid</string>
+    <string name="error_grades_amount_input_empty">Number of grades cannot be empty</string>
+    <string name="error_grades_amount_input_incorrect_range">Number of grades must be in range of [5;15]</string>
+    <string name="message_mean_result">Your mean is %.2f</string>
+    <string name="message_grades_passed">Congratulations! You passed!</string>
+    <string name="message_grades_failed">I\'m sending an application for a conditional pass</string>
+    <!--activity_grades_form-->
+
+    <!--activity_grades_selection-->
+    <string name="button_grades_ready">Ready</string>
+    <string name="error_grades_not_checked">Not all grades have been checked</string>
+    <!--activity_grades_selection-->
+
+    <!--grades_group-->
+    <string name="label_grades_order">Grade %d</string>
+    <string name="grade_two" translatable="false">2</string>
+    <string name="grade_three" translatable="false">3</string>
+    <string name="grade_four" translatable="false">4</string>
+    <string name="grade_five" translatable="false">5</string>
+    <!--grades_group-->
+
+    <!--phone_browsing_menu-->
+    <string name="menu_item_add_to_database">Add</string>
+    <string name="menu_item_delete_from_database">Delete</string>
+    <string name="menu_item_edit_database">Edit</string>
+    <string name="menu_item_delete_all_from_database">Delete all</string>
+    <!--phone_browsing_menu-->
+
+    <!--activity_phones_database_browsing-->
+    <string name="phone_database_empty_info">No data</string>
+    <string name="message_phone_deleted">Successfully deleted</string>
+    <string name="message_all_phones_deleted">Successfully deleted all</string>
+    <!--activity_phones_database_browsing-->
+
+    <!--activity_phone_database_form-->
+    <string name="label_phone_manufacturer">Manufacturer:</string>
+    <string name="label_phone_model">Model:</string>
+    <string name="label_phone_android_version">Android version:</string>
+    <string name="label_phone_website" translatable="false">WWW:</string>
+    <string name="button_phone_website" translatable="false">WWW</string>
+    <string name="button_phone_cancel">Cancel</string>
+    <string name="button_phone_save">Save</string>
+    <string name="error_phone_manufacturer_input_incorrect">Entered manufacturer name is invalid</string>
+    <string name="error_phone_model_input_incorrect">Entered model name is invalid</string>
+    <string name="error_phone_android_version_incorrect">Entered android version is invalid</string>
+    <string name="error_phone_website_input_incorrect">Entered website address is invalid</string>
+    <string name="message_entered_phone_data_invalid">Not all entered data is valid</string>
+    <string name="message_saved_phone_successfully">Saved successfully</string>
+
+    <string-array name="phone_manufacturers_list">
+        <item>Asus</item>
+        <item>BlackBerry</item>
+        <item>Google</item>
+        <item>HMD</item>
+        <item>HTC</item>
+        <item>Huawei</item>
+        <item>Lenovo</item>
+        <item>LG</item>
+        <item>Meizu</item>
+        <item>Motorola</item>
+        <item>OnePlus</item>
+        <item>Oppo</item>
+        <item>Realme</item>
+        <item>Samsung</item>
+        <item>Sony</item>
+        <item>Tecno</item>
+        <item>Vivo</item>
+        <item>Xiaomi</item>
+        <item>ZTE</item>
+    </string-array>
+    <!--activity_phone_database_form-->
+
+</resources>

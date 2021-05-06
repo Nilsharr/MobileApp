@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/PhonesDatabaseFormActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/phoneManufacturerLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:labelFor="@id/phoneManufacturerInput"
+        android:text="@string/label_phone_manufacturer"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toTopOf="@+id/phoneModelLabel"
+        app:layout_constraintEnd_toStartOf="@+id/phoneManufacturerInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <AutoCompleteTextView
+        android:id="@+id/phoneManufacturerInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:inputType="textCapWords"
+        android:maxLength="40"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:imeOptions="actionNext"
+        android:completionThreshold="1"
+        app:layout_constraintBottom_toTopOf="@+id/phoneModelInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/phoneManufacturerLabel"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/phoneModelLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:labelFor="@id/phoneModelInput"
+        android:text="@string/label_phone_model"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toTopOf="@+id/phoneAndroidVersionLabel"
+        app:layout_constraintEnd_toStartOf="@+id/phoneModelInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneManufacturerLabel" />
+
+    <EditText
+        android:id="@+id/phoneModelInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="text|textCapWords"
+        android:maxLength="40"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/phoneAndroidVersionInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/phoneModelLabel"
+        app:layout_constraintTop_toBottomOf="@+id/phoneManufacturerInput"
+        tools:ignore="TextFields" />
+
+    <TextView
+        android:id="@+id/phoneAndroidVersionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:labelFor="@id/phoneAndroidVersionInput"
+        android:text="@string/label_phone_android_version"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toTopOf="@+id/phoneWebsiteLabel"
+        app:layout_constraintEnd_toStartOf="@+id/phoneAndroidVersionInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneModelLabel" />
+
+    <EditText
+        android:id="@+id/phoneAndroidVersionInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:maxLength="4"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/phoneWebsiteInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/phoneAndroidVersionLabel"
+        app:layout_constraintTop_toBottomOf="@+id/phoneModelInput"
+        tools:ignore="TextFields" />
+
+    <TextView
+        android:id="@+id/phoneWebsiteLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:labelFor="@id/phoneWebsiteInput"
+        android:text="@string/label_phone_website"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toTopOf="@+id/phoneWebsiteButton"
+        app:layout_constraintEnd_toStartOf="@+id/phoneWebsiteInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneAndroidVersionLabel" />
+
+    <EditText
+        android:id="@+id/phoneWebsiteInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="textUri"
+        android:maxLength="80"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/phoneCancelButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/phoneWebsiteLabel"
+        app:layout_constraintTop_toBottomOf="@+id/phoneAndroidVersionInput"
+        tools:ignore="TextFields" />
+
+    <Button
+        android:id="@+id/phoneWebsiteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@android:color/darker_gray"
+        android:text="@string/button_phone_website"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toStartOf="@+id/phoneCancelButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneWebsiteInput" />
+
+    <Button
+        android:id="@+id/phoneCancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@android:color/darker_gray"
+        android:text="@string/button_phone_cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toStartOf="@+id/phoneSaveButton"
+        app:layout_constraintStart_toEndOf="@+id/phoneWebsiteButton"
+        app:layout_constraintTop_toBottomOf="@+id/phoneWebsiteInput" />
+
+    <Button
+        android:id="@+id/phoneSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@android:color/darker_gray"
+        android:text="@string/button_phone_save"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/phoneCancelButton"
+        app:layout_constraintTop_toBottomOf="@+id/phoneWebsiteInput" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
