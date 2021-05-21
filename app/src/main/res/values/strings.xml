@@ -2,12 +2,13 @@
     <string name="app_name">Mobile App</string>
     <string name="toolbar_name_grades_average">Grades Average</string>
     <string name="toolbar_name_phones_database_app">Phone Database</string>
+    <string name="toolbar_name_drawing">Draw</string>
 
     <!--activity_main-->
     <string name="app_name_grades_average">Calculate the Grades Average</string>
     <string name="app_name_phones_database">Database of Mobile Phones</string>
-    <string name="app_name_placeholder1">Placeholder</string>
-    <string name="app_name_placeholder2">Placeholder2</string>
+    <string name="app_name_drawing">Drawing</string>
+    <string name="app_name_placeholder">Placeholder</string>
     <!--activity_main-->
 
     <!--activity_grades_form-->
@@ -89,5 +90,8 @@
         <item>ZTE</item>
     </string-array>
     <!--activity_phone_database_form-->
+
+    <!--activity_drawing-->
+    <!--activity_drawing-->
 
 </resources>

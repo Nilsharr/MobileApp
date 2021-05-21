@@ -3,12 +3,13 @@
     <string name="app_name">Aplikacja Mobilna</string>
     <string name="toolbar_name_grades_average">Średnia Ocen</string>
     <string name="toolbar_name_phones_database_app">Baza Telefonów</string>
+    <string name="toolbar_name_drawing">Rysuj</string>
 
     <!--activity_main-->
     <string name="app_name_grades_average">Oblicz Średnią Ocen</string>
     <string name="app_name_phones_database">Baza Danych Telefonów Mobilnych</string>
-    <string name="app_name_placeholder1">Placeholder</string>
-    <string name="app_name_placeholder2">Placeholder2</string>
+    <string name="app_name_drawing">Rysowanie</string>
+    <string name="app_name_placeholder">Placeholder</string>
     <!--activity_main-->
 
     <!--activity_grades_form-->
@@ -62,5 +63,8 @@
     <string name="message_entered_phone_data_invalid">Nie wszystkie wprowadzone dane są prawidłowe</string>
     <string name="message_saved_phone_successfully">Zapisano pomyślnie</string>
     <!--activity_phone_database_form-->
+
+    <!--activity_drawing-->
+    <!--activity_drawing-->
 
 </resources>

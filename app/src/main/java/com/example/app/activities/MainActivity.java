@@ -1,4 +1,4 @@
-package com.example.app;
+package com.example.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.app.activities.GradesFormActivity;
-import com.example.app.activities.PhonesDatabaseBrowsingActivity;
+import com.example.app.R;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -20,10 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.phonesDatabaseAppButton).setOnClickListener(view -> startActivity(new Intent(MainActivity.this, PhonesDatabaseBrowsingActivity.class)));
 
-        findViewById(R.id.placeholder1Button).setOnClickListener(view -> {
-            Toast.makeText(this, "Someday there will be something here", Toast.LENGTH_SHORT).show();
-            //startActivity(new Intent(MainActivity.this, Placeholder1.class));
-        });
+        findViewById(R.id.placeholder1Button).setOnClickListener(view -> startActivity(new Intent(MainActivity.this, DrawingActivity.class)));
 
         findViewById(R.id.placeholder2Button).setOnClickListener(view -> {
             Toast.makeText(this, "Someday there will be something here", Toast.LENGTH_SHORT).show();

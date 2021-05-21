@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidApp">
-        <activity android:name="com.example.app.MainActivity">
+        <activity android:name="com.example.app.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,12 +22,17 @@
         <activity
             android:name="com.example.app.activities.GradesSelectionActivity"
             android:label="@string/toolbar_name_grades_average" />
+
         <activity
             android:name="com.example.app.activities.PhonesDatabaseFormActivity"
             android:label="@string/toolbar_name_phones_database_app" />
         <activity
             android:name="com.example.app.activities.PhonesDatabaseBrowsingActivity"
             android:label="@string/toolbar_name_phones_database_app" />
+
+        <activity
+            android:name="com.example.app.activities.DrawingActivity"
+            android:label="@string/toolbar_name_drawing" />
     </application>
 
 </manifest>
