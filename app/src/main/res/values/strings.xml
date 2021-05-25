@@ -92,6 +92,10 @@
     <!--activity_phone_database_form-->
 
     <!--activity_drawing-->
+    <string name="menu_item_change_paint_color">Change paint color</string>
+    <string name="menu_item_change_background_color">Change background color</string>
+    <string name="menu_item_change_paint_width">Change paint width</string>
+    <string name="menu_item_clear_screen">Clear screen</string>
     <!--activity_drawing-->
 
 </resources>

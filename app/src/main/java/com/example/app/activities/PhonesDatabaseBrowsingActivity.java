@@ -28,12 +28,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.app.R;
 import com.example.app.adapters.PhoneAdapter;
 import com.example.app.phone_database.Phone;
-import com.example.app.view_models.PhoneViewModel;
+import com.example.app.views.PhoneViewModel;
 import com.example.app.phone_selection_tracker.PhoneItemDetailsLookup;
 import com.example.app.phone_selection_tracker.PhoneItemKeyProvider;
 import com.example.app.utils.Constants;
 
 import java.util.List;
+import java.util.Objects;
 
 // to do
 // edit on long click
@@ -56,19 +57,24 @@ public class PhonesDatabaseBrowsingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         int itemId = item.getItemId();
+        // Returning to previous activity
+        if (itemId == android.R.id.home) {
+            finish();
+            return true;
+        }
         // Adding phone to database
-        if (itemId == R.id.addPhoneToDatabaseButton) {
+        if (itemId == R.id.addPhoneToDatabaseMenuButton) {
             startActivityForResult(new Intent(PhonesDatabaseBrowsingActivity.this, PhonesDatabaseFormActivity.class), Constants.ADD_PHONE_ACTIVITY_REQUEST_CODE);
             return true;
         }
         // Deleting phone from database
-        else if (itemId == R.id.deletePhoneFromDatabaseButton) {
+        else if (itemId == R.id.deletePhoneFromDatabaseMenuButton) {
             deleteSelected();
             Toast.makeText(this, getString(R.string.message_phone_deleted), Toast.LENGTH_SHORT).show();
             return true;
         }
         // Editing existing phone
-        else if (itemId == R.id.editPhoneInDatabaseButton) {
+        else if (itemId == R.id.editPhoneInDatabaseMenuButton) {
             Selection<Long> selection = mSelectionTracker.getSelection();
             List<Phone> phoneList = mPhoneViewModel.getAllPhones().getValue();
             if (phoneList != null) {
@@ -83,7 +89,7 @@ public class PhonesDatabaseBrowsingActivity extends AppCompatActivity {
             return true;
         }
         // Deleting all phones in database
-        else if (itemId == R.id.deleteAllPhonesFromDatabaseButton) {
+        else if (itemId == R.id.deleteAllPhonesFromDatabaseMenuButton) {
             mPhoneViewModel.deleteAll();
             Toast.makeText(this, getString(R.string.message_all_phones_deleted), Toast.LENGTH_SHORT).show();
             return true;
@@ -97,11 +103,11 @@ public class PhonesDatabaseBrowsingActivity extends AppCompatActivity {
         // showing "no data" message if db is empty
         findViewById(R.id.phoneListEmptyInfo).setVisibility(mPhoneAdapter.getItemCount() > 0 ? View.INVISIBLE : View.VISIBLE);
         // showing edit menu icon if only one item is selected
-        menu.findItem(R.id.editPhoneInDatabaseButton).setVisible(mSelectionTracker.getSelection().size() == 1);
+        menu.findItem(R.id.editPhoneInDatabaseMenuButton).setVisible(mSelectionTracker.getSelection().size() == 1);
         // showing delete menu icon if there is at least one selected item
-        menu.findItem(R.id.deletePhoneFromDatabaseButton).setVisible(mSelectionTracker.hasSelection());
+        menu.findItem(R.id.deletePhoneFromDatabaseMenuButton).setVisible(mSelectionTracker.hasSelection());
         // showing delete all menu icon if there is at least one item in db
-        menu.findItem(R.id.deleteAllPhonesFromDatabaseButton).setVisible(mPhoneAdapter.getItemCount() > 0);
+        menu.findItem(R.id.deleteAllPhonesFromDatabaseMenuButton).setVisible(mPhoneAdapter.getItemCount() > 0);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -109,6 +115,7 @@ public class PhonesDatabaseBrowsingActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phones_database_browsing);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         // creating recyclerview
         RecyclerView phoneRecyclerView = findViewById(R.id.phoneList);

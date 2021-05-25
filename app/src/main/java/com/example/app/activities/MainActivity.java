@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.phonesDatabaseAppButton).setOnClickListener(view -> startActivity(new Intent(MainActivity.this, PhonesDatabaseBrowsingActivity.class)));
 
-        findViewById(R.id.placeholder1Button).setOnClickListener(view -> startActivity(new Intent(MainActivity.this, DrawingActivity.class)));
+        findViewById(R.id.drawingAppButton).setOnClickListener(view -> startActivity(new Intent(MainActivity.this, DrawingActivity.class)));
 
         findViewById(R.id.placeholder2Button).setOnClickListener(view -> {
             Toast.makeText(this, "Someday there will be something here", Toast.LENGTH_SHORT).show();

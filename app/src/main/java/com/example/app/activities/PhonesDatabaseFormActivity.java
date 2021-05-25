@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
@@ -30,9 +31,21 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
     private Phone phone;
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Returning to previous activity
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phones_database_form);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         phoneManufacturerInput = findViewById(R.id.phoneManufacturerInput);
         phoneModelInput = findViewById(R.id.phoneModelInput);
         phoneAndroidVersionInput = findViewById(R.id.phoneAndroidVersionInput);

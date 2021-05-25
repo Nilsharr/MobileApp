@@ -53,13 +53,13 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/placeholder1Button"
+        app:layout_constraintBottom_toTopOf="@+id/drawingAppButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phonesDatabaseAppButton" />
 
     <Button
-        android:id="@+id/placeholder1Button"
+        android:id="@+id/drawingAppButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
@@ -83,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/placeholder1Button" />
+        app:layout_constraintTop_toBottomOf="@+id/drawingAppButton" />
 
 
     <Button

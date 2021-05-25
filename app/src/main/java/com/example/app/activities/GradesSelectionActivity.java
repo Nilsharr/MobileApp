@@ -9,21 +9,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.app.R;
 import com.example.app.adapters.GradesAdapter;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class GradesSelectionActivity extends AppCompatActivity {
     // array that saves value of checked grade
     private int[] gradesArray;
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Returning to previous activity
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grades_selection);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState != null) {
             gradesArray = savedInstanceState.getIntArray("gradesArray");

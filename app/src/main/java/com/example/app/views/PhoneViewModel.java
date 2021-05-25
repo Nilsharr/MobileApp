@@ -1,4 +1,4 @@
-package com.example.app.view_models;
+package com.example.app.views;
 
 import android.app.Application;
 

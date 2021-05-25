@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import com.example.app.R;
 import com.example.app.utils.Utilities;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 
 public class GradesFormActivity extends AppCompatActivity {
@@ -30,9 +32,24 @@ public class GradesFormActivity extends AppCompatActivity {
     private double meanValue;
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Returning to previous activity
+        if (item.getItemId() == android.R.id.home) {
+            if (meanValue != 0) {
+                Toast.makeText(this, meanValue >= 3 ? getString(R.string.message_grades_passed) : getString(R.string.message_grades_failed), Toast.LENGTH_SHORT).show();
+            }
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grades_form);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         gradesNameInput = findViewById(R.id.gradesNameInput);
         gradesSurnameInput = findViewById(R.id.gradesSurnameInput);
         gradesAmountInput = findViewById(R.id.gradesAmountInput);

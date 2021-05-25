@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/addPhoneToDatabaseButton"
+        android:id="@+id/addPhoneToDatabaseMenuButton"
         android:icon="@android:drawable/ic_input_add"
         android:title="@string/menu_item_add_to_database"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/editPhoneInDatabaseButton"
+        android:id="@+id/editPhoneInDatabaseMenuButton"
         android:icon="@android:drawable/ic_menu_edit"
         android:title="@string/menu_item_edit_database"
         android:visible="false"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />
     <item
-        android:id="@+id/deletePhoneFromDatabaseButton"
+        android:id="@+id/deletePhoneFromDatabaseMenuButton"
         android:icon="@android:drawable/ic_delete"
         android:title="@string/menu_item_delete_from_database"
         android:visible="false"
         app:showAsAction="always" />
     <item
-        android:id="@+id/deleteAllPhonesFromDatabaseButton"
+        android:id="@+id/deleteAllPhonesFromDatabaseMenuButton"
         android:icon="@android:drawable/ic_menu_delete"
         android:title="@string/menu_item_delete_all_from_database"
         android:visible="false" />

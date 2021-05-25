@@ -65,6 +65,10 @@
     <!--activity_phone_database_form-->
 
     <!--activity_drawing-->
+    <string name="menu_item_change_paint_color">Zmień kolor pędzla</string>
+    <string name="menu_item_change_background_color">Zmień kolor tła</string>
+    <string name="menu_item_change_paint_width">Zmień szerokość pędzla</string>
+    <string name="menu_item_clear_screen">Wyczyść ekran</string>
     <!--activity_drawing-->
 
 </resources>
