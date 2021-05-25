@@ -21,6 +21,9 @@
 .idea/assetWizardSettings.xml
 .idea/modules.xml
 .idea/workspace.xml
+.idea/gradle.xml
+.idea/runConfigurations.xml
+.idea/saveactions_settings.xml
 .DS_Store
 /build
 /captures
