@@ -67,7 +67,7 @@ public class DrawingActivity extends AppCompatActivity {
                 @Override
                 public void onOk(AmbilWarnaDialog dialog, int color) {
                     surface.setBackgroundColor(color);
-                    surface.clearScreen();
+                    surface.refreshBackgroundColor();
                 }
             });
             dialog.show();
