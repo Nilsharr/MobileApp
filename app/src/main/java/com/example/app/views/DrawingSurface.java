@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -16,10 +15,7 @@ import androidx.annotation.NonNull;
 
 public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 
-    // save painting on backgroundcolor change
-
-    private SurfaceHolder holder;
-    private Thread drawingThread;
+    private final SurfaceHolder holder;
     private boolean threadWorking = false;
     private final Object blockade = new Object();
 
@@ -27,7 +23,7 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
     private Path path = null;
     private final Paint paint = new Paint();
     private Canvas canvas = null;
-    private int backgroundColor = Color.WHITE;
+    private int backgroundColor;
 
     public DrawingSurface(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -40,8 +36,8 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
     }
 
     public void resumeDrawing() {
-        drawingThread = new Thread(this);
         threadWorking = true;
+        Thread drawingThread = new Thread(this);
         drawingThread.start();
     }
 
@@ -53,7 +49,6 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
     public boolean onTouchEvent(MotionEvent event) {
         performClick();
         synchronized (blockade) {
-            Canvas canvas = new Canvas(bitmap);
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     path = new Path();
@@ -86,12 +81,8 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
         return backgroundColor;
     }
 
-    // hmm
-    public void changeBackgroundColor(int color) {
-        canvas.drawColor(color);
-    }
-
     public void clearScreen() {
+        //bitmap.eraseColor(Color.TRANSPARENT);
         canvas.drawColor(backgroundColor);
     }
 
@@ -124,7 +115,6 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
                     synchronized (blockade) {
                         if (threadWorking) {
                             canvas.drawBitmap(bitmap, 0, 0, null);
-                            Log.d("dx", "xdd");
                         }
                     }
                 }
@@ -143,14 +133,18 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
-        this.holder = holder;
-        bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        canvas = new Canvas(bitmap);
-        canvas.drawColor(backgroundColor);
     }
 
     @Override
     public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
+        if (bitmap == null) {
+            bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            canvas = new Canvas(bitmap);
+            canvas.drawColor(backgroundColor);
+        } else {
+            bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
+            canvas = new Canvas(bitmap);
+        }
 
     }
 
@@ -158,4 +152,5 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
         threadWorking = false;
     }
+
 }
