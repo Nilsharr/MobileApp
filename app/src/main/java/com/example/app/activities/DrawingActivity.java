@@ -71,11 +71,11 @@ public class DrawingActivity extends AppCompatActivity {
             SeekBar seek = new SeekBar(this);
             seek.setMin(1);
             seek.setMax(50);
-            seek.setProgress((int) surface.getPaintWidth());
+            seek.setProgress(surface.getPaintWidth());
             seek.setPadding(40, 10, 40, 10);
 
             TextView text = new TextView(this);
-            text.setText(String.valueOf((int) surface.getPaintWidth()));
+            text.setText(String.valueOf(surface.getPaintWidth()));
             text.setPadding(50, 10, 10, 10);
 
             seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

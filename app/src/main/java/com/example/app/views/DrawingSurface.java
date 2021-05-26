@@ -57,7 +57,7 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
         return backgroundColor;
     }
 
-    public void setPaintColor(final int color) {
+    public void setPaintColor(int color) {
         paint.setColor(color);
     }
 
@@ -69,8 +69,8 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
         paint.setStrokeWidth(width);
     }
 
-    public float getPaintWidth() {
-        return paint.getStrokeWidth();
+    public int getPaintWidth() {
+        return (int) paint.getStrokeWidth();
     }
 
     public void clearScreen() {
