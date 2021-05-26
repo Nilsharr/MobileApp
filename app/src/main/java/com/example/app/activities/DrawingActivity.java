@@ -22,7 +22,6 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class DrawingActivity extends AppCompatActivity {
     private DrawingSurface surface;
-    private int paintWidth;
 
     // Creating menu
     @Override
@@ -72,12 +71,12 @@ public class DrawingActivity extends AppCompatActivity {
             SeekBar seek = new SeekBar(this);
             seek.setMin(1);
             seek.setMax(50);
-            seek.setProgress(paintWidth = (int) surface.getPaintWidth());
+            seek.setProgress((int) surface.getPaintWidth());
             seek.setPadding(40, 10, 40, 10);
 
             TextView text = new TextView(this);
+            text.setText(String.valueOf((int) surface.getPaintWidth()));
             text.setPadding(50, 10, 10, 10);
-            text.setText(String.valueOf(paintWidth));
 
             seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
@@ -91,7 +90,6 @@ public class DrawingActivity extends AppCompatActivity {
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    paintWidth = seekBar.getProgress();
                 }
             });
 
@@ -99,7 +97,7 @@ public class DrawingActivity extends AppCompatActivity {
             linear.addView(text);
             alert.setView(linear);
 
-            alert.setPositiveButton(getString(R.string.information_ok), (dialog, id) -> surface.setPaintWidth(paintWidth));
+            alert.setPositiveButton(getString(R.string.information_ok), (dialog, id) -> surface.setPaintWidth(seek.getProgress()));
             alert.setNegativeButton(getString(R.string.information_cancel), (dialog, id) -> {
             });
             alert.show();
