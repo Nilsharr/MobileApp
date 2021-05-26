@@ -39,50 +39,13 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
 
+        // setting initial background color based on device theme
+        // black background for dark theme, white for light theme
         if ((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
             backgroundColor = Color.BLACK;
         } else {
             backgroundColor = Color.WHITE;
         }
-    }
-
-    public void resumeDrawing() {
-        threadWorking = true;
-        Thread drawingThread = new Thread(this);
-        drawingThread.start();
-    }
-
-    public void pauseDrawing() {
-        threadWorking = false;
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        performClick();
-        synchronized (blockade) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    path = new Path();
-                    drawingCanvas.drawCircle(event.getX(), event.getY(), getPaintWidth() * 3, paint);
-                    path.moveTo(event.getX(), event.getY());
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    path.lineTo(event.getX(), event.getY());
-                    drawingCanvas.drawPath(path, paint);
-                    break;
-                case MotionEvent.ACTION_UP:
-                    drawingCanvas.drawCircle(event.getX(), event.getY(), getPaintWidth() * 3, paint);
-                    break;
-                default:
-                    return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public boolean performClick() {
-        return super.performClick();
     }
 
     @Override
@@ -115,6 +78,49 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
         drawingBitmap.eraseColor(Color.TRANSPARENT);
     }
 
+    // detecting drawn path based on user input
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        performClick();
+        synchronized (blockade) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    path = new Path();
+                    drawingCanvas.drawCircle(event.getX(), event.getY(), getPaintWidth() * 3, paint);
+                    path.moveTo(event.getX(), event.getY());
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    path.lineTo(event.getX(), event.getY());
+                    drawingCanvas.drawPath(path, paint);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    drawingCanvas.drawCircle(event.getX(), event.getY(), getPaintWidth() * 3, paint);
+                    break;
+                default:
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean performClick() {
+        return super.performClick();
+    }
+
+    // starting thread responsible for drawing
+    public void resumeDrawing() {
+        threadWorking = true;
+        Thread drawingThread = new Thread(this);
+        drawingThread.start();
+    }
+
+    // stopping thread responsible for drawing
+    public void pauseDrawing() {
+        threadWorking = false;
+    }
+
+    // drawing path drawn by the user
     @Override
     public void run() {
         while (threadWorking) {
@@ -127,7 +133,9 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
                     canvas = holder.lockCanvas(null);
                     synchronized (blockade) {
                         if (threadWorking) {
+                            // drawing background color
                             canvas.drawBitmap(backgroundBitmap, 0, 0, null);
+                            // drawing path
                             canvas.drawBitmap(drawingBitmap, 0, 0, null);
                         }
                     }
@@ -145,10 +153,7 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
         }
     }
 
-    @Override
-    public void surfaceCreated(@NonNull SurfaceHolder holder) {
-    }
-
+    // scaling image on device orientation change
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -161,22 +166,26 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
         }
     }
 
+    // setting up bitmaps and canvases for background color and drawn shape
     @Override
-    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
+    public void surfaceCreated(@NonNull SurfaceHolder holder) {
         if (drawingBitmap == null) {
-            drawingBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            drawingBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
             drawingCanvas = new Canvas(drawingBitmap);
             drawingCanvas.drawColor(Color.TRANSPARENT);
 
-            backgroundBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            backgroundBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
             backgroundCanvas = new Canvas(backgroundBitmap);
             backgroundCanvas.drawColor(backgroundColor);
         }
     }
 
     @Override
+    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
+    }
+
+    @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
         threadWorking = false;
     }
-
 }

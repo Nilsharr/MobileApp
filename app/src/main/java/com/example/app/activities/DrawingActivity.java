@@ -30,9 +30,9 @@ public class DrawingActivity extends AppCompatActivity {
         return true;
     }
 
+    // Handle menu item selection
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
         int itemId = item.getItemId();
         // Returning to previous activity
         if (itemId == android.R.id.home) {
@@ -59,7 +59,7 @@ public class DrawingActivity extends AppCompatActivity {
             surface.clearScreen();
             return true;
         }
-        // Changing paint width
+        // Changing paint width with seekbar
         else if (itemId == R.id.changePaintWidthMenuButton) {
 
             final AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -127,6 +127,7 @@ public class DrawingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drawing);
         surface = findViewById(R.id.drawingSurface);
 
+        // creating home button
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
