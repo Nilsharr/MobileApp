@@ -32,7 +32,6 @@
 
         <activity
             android:name="com.example.app.activities.DrawingActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/toolbar_name_drawing" />
 
     </application>

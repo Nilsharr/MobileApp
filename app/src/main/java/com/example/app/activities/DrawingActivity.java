@@ -1,6 +1,7 @@
 package com.example.app.activities;
 
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,13 +9,16 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.R;
+import com.example.app.utils.Constants;
 import com.example.app.views.DrawingSurface;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Objects;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
@@ -141,5 +145,35 @@ public class DrawingActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         surface.pauseDrawing();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // compressing drawingBitmap to byte array and saving to bundle
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        surface.getDrawingBitmap().compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] compDrawingBitmap = stream.toByteArray();
+        outState.putByteArray(Constants.SAVED_COMPRESSED_DRAWING_BITMAP, compDrawingBitmap);
+
+        // compressing backgroundBitmap to byte array and saving to bundle
+        ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
+        surface.getBackgroundBitmap().compress(Bitmap.CompressFormat.PNG, 100, stream2);
+        byte[] compBackgroundBitmap = stream2.toByteArray();
+        outState.putByteArray(Constants.SAVED_COMPRESSED_BACKGROUND_BITMAP, compBackgroundBitmap);
+
+        outState.putInt(Constants.SAVED_PAINT_COLOR, surface.getPaintColor());
+        outState.putInt(Constants.SAVED_PAINT_WIDTH, surface.getPaintWidth());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        surface.setDrawingBitmap(savedInstanceState.getByteArray(Constants.SAVED_COMPRESSED_DRAWING_BITMAP));
+        surface.setBackgroundBitmap(savedInstanceState.getByteArray(Constants.SAVED_COMPRESSED_BACKGROUND_BITMAP));
+        surface.setPaintColor(savedInstanceState.getInt(Constants.SAVED_PAINT_COLOR));
+        surface.setPaintWidth(savedInstanceState.getInt(Constants.SAVED_PAINT_WIDTH));
     }
 }

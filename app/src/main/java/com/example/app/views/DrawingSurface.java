@@ -3,6 +3,7 @@ package com.example.app.views;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -71,6 +72,22 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
 
     public int getPaintWidth() {
         return (int) paint.getStrokeWidth();
+    }
+
+    public Bitmap getDrawingBitmap() {
+        return drawingBitmap;
+    }
+
+    public void setDrawingBitmap(byte[] byteArray) {
+        drawingBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length).copy(Bitmap.Config.ARGB_8888, true);
+    }
+
+    public Bitmap getBackgroundBitmap() {
+        return backgroundBitmap;
+    }
+
+    public void setBackgroundBitmap(byte[] byteArray) {
+        backgroundBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length).copy(Bitmap.Config.ARGB_8888, true);
     }
 
     public void clearScreen() {
@@ -152,19 +169,6 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
         }
     }
 
-    // scaling image on device orientation change
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        if (drawingBitmap != null) {
-            drawingBitmap = Bitmap.createScaledBitmap(drawingBitmap, w, h, true);
-            drawingCanvas = new Canvas(drawingBitmap);
-
-            backgroundBitmap = Bitmap.createScaledBitmap(backgroundBitmap, w, h, true);
-            backgroundCanvas = new Canvas(backgroundBitmap);
-        }
-    }
-
     // setting up bitmaps and canvases for background color and drawn shape
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
@@ -179,8 +183,16 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
         }
     }
 
+    // scaling image on device orientation change
     @Override
     public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
+        if (drawingBitmap != null) {
+            drawingBitmap = Bitmap.createScaledBitmap(drawingBitmap, width, height, true);
+            drawingCanvas = new Canvas(drawingBitmap);
+
+            backgroundBitmap = Bitmap.createScaledBitmap(backgroundBitmap, width, height, true);
+            backgroundCanvas = new Canvas(backgroundBitmap);
+        }
     }
 
     @Override
