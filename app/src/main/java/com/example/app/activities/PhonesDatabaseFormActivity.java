@@ -131,7 +131,7 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
                 Intent replyIntent = new Intent();
                 replyIntent.putExtra(Constants.INTENT_PHONE_OBJECT, phone);
                 setResult(RESULT_OK, replyIntent);
-                Toast.makeText(this, getString(R.string.message_saved_phone_successfully), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.message_item_saved), Toast.LENGTH_SHORT).show();
                 finish();
             } else {
                 Utilities.clearFocusAndHideKeyboard(findViewById(R.id.PhonesDatabaseFormActivity));

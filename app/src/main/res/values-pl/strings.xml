@@ -5,6 +5,22 @@
     <string name="toolbar_name_phones_database_app">Baza Telefonów</string>
     <string name="toolbar_name_drawing">Rysuj</string>
 
+    <!--general-->
+
+    <string name="information_item_add">Dodaj</string>
+    <string name="information_item_edit">Edytuj</string>
+    <string name="information_item_delete">Usuń</string>
+    <string name="information_item_delete_all">Usuń wszystkie</string>
+    <string name="information_ok">OK</string>
+    <string name="information_save">Zapisz</string>
+    <string name="information_cancel">Anuluj</string>
+    <string name="information_ready">Gotowe</string>
+    <string name="information_empty">Brak danych</string>
+    <string name="message_item_saved">Zapisano pomyślnie</string>
+    <string name="message_item_deleted">Pomyślnie usunięto</string>
+    <string name="message_item_deleted_all">Pomyślnie usunięto wszystko</string>
+    <!--general-->
+
     <!--activity_main-->
     <string name="app_name_grades_average">Oblicz Średnią Ocen</string>
     <string name="app_name_phones_database">Baza Danych Telefonów Mobilnych</string>
@@ -28,47 +44,28 @@
     <string name="message_grades_failed">Wysyłam podanie o zaliczenie warunkowe</string>
     <!--activity_grades_form-->
 
-    <!--activity_grades_selection-->
-    <string name="button_grades_ready">Gotowe</string>
-    <!--activity_grades_selection-->
-
     <!--grades_group-->
     <string name="label_grades_order">Ocena %d</string>
     <string name="error_grades_not_checked">Nie wszystkie oceny zostały zaznaczone</string>
     <!--grades_group-->
 
-    <!--phone_browsing_menu-->
-    <string name="menu_item_add_to_database">Dodaj</string>
-    <string name="menu_item_delete_from_database">Usuń</string>
-    <string name="menu_item_edit_database">Edytuj</string>
-    <string name="menu_item_delete_all_from_database">Usuń wszystkie</string>
-    <!--phone_browsing_menu-->
-
-    <!--activity_phones_database_browsing-->
-    <string name="phone_database_empty_info">Brak danych</string>
-    <string name="message_phone_deleted">Pomyślnie usunięto</string>
-    <string name="message_all_phones_deleted">Pomyślnie usunięto wszystko</string>
-    <!--activity_phones_database_browsing-->
-
     <!--activity_phone_database_form-->
     <string name="label_phone_manufacturer">Producent:</string>
     <string name="label_phone_model">Model:</string>
     <string name="label_phone_android_version">Wersja androida:</string>
-    <string name="button_phone_cancel">Anuluj</string>
-    <string name="button_phone_save">Zapisz</string>
     <string name="error_phone_manufacturer_input_incorrect">Wprowadzona nazwa producenta jest nieprawidłowa</string>
     <string name="error_phone_model_input_incorrect">Wprowadzona nazwa modelu jest nieprawidłowa</string>
     <string name="error_phone_android_version_incorrect">Wprowadzona wersja androida jest nieprawidłowa</string>
     <string name="error_phone_website_input_incorrect">Wprowadzony adres strony internetowej jest nieprawidłowy</string>
     <string name="message_entered_phone_data_invalid">Nie wszystkie wprowadzone dane są prawidłowe</string>
-    <string name="message_saved_phone_successfully">Zapisano pomyślnie</string>
     <!--activity_phone_database_form-->
 
     <!--activity_drawing-->
     <string name="menu_item_change_paint_color">Zmień kolor pędzla</string>
-    <string name="menu_item_change_background_color">Zmień kolor tła</string>
-    <string name="menu_item_change_paint_width">Zmień szerokość pędzla</string>
     <string name="menu_item_clear_screen">Wyczyść ekran</string>
+    <string name="menu_item_change_paint_width">Zmień szerokość pędzla</string>
+    <string name="dialog_item_set_paint_width">Ustaw szerokość pędzla</string>
+    <string name="menu_item_change_background_color">Zmień kolor tła</string>
     <!--activity_drawing-->
 
 </resources>

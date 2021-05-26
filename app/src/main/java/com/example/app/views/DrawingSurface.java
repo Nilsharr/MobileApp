@@ -1,13 +1,13 @@
 package com.example.app.views;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -33,10 +33,17 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
         super(context, attrs);
         holder = getHolder();
         holder.addCallback(this);
+
         paint.setColor(Color.RED);
         paint.setStrokeWidth(3);
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
+
+        if ((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
+            backgroundColor = Color.BLACK;
+        } else {
+            backgroundColor = Color.WHITE;
+        }
     }
 
     public void resumeDrawing() {
@@ -73,24 +80,19 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
         return true;
     }
 
+    @Override
     public boolean performClick() {
         return super.performClick();
     }
 
+    @Override
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
+        backgroundCanvas.drawColor(backgroundColor);
     }
 
     public int getBackgroundColor() {
         return backgroundColor;
-    }
-
-    public void refreshBackgroundColor() {
-        backgroundCanvas.drawColor(backgroundColor);
-    }
-
-    public void clearScreen() {
-        drawingBitmap.eraseColor(Color.TRANSPARENT);
     }
 
     public void setPaintColor(final int color) {
@@ -107,6 +109,10 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
 
     public float getPaintWidth() {
         return paint.getStrokeWidth();
+    }
+
+    public void clearScreen() {
+        drawingBitmap.eraseColor(Color.TRANSPARENT);
     }
 
     @Override
@@ -145,7 +151,6 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        Log.d("hmm", "xdd");
         super.onSizeChanged(w, h, oldw, oldh);
         if (drawingBitmap != null) {
             drawingBitmap = Bitmap.createScaledBitmap(drawingBitmap, w, h, true);
@@ -158,7 +163,6 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
 
     @Override
     public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
-        Log.d("dxx", "mhh");
         if (drawingBitmap == null) {
             drawingBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             drawingCanvas = new Canvas(drawingBitmap);

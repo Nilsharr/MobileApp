@@ -5,25 +5,25 @@
     <item
         android:id="@+id/addPhoneToDatabaseMenuButton"
         android:icon="@android:drawable/ic_input_add"
-        android:title="@string/menu_item_add_to_database"
+        android:title="@string/information_item_add"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/editPhoneInDatabaseMenuButton"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="@string/menu_item_edit_database"
+        android:title="@string/information_item_edit"
         android:visible="false"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />
     <item
         android:id="@+id/deletePhoneFromDatabaseMenuButton"
         android:icon="@android:drawable/ic_delete"
-        android:title="@string/menu_item_delete_from_database"
+        android:title="@string/information_item_delete"
         android:visible="false"
         app:showAsAction="always" />
     <item
         android:id="@+id/deleteAllPhonesFromDatabaseMenuButton"
         android:icon="@android:drawable/ic_menu_delete"
-        android:title="@string/menu_item_delete_all_from_database"
+        android:title="@string/information_item_delete_all"
         android:visible="false" />
 </menu>

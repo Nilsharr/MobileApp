@@ -70,7 +70,7 @@ public class PhonesDatabaseBrowsingActivity extends AppCompatActivity {
         // Deleting phone from database
         else if (itemId == R.id.deletePhoneFromDatabaseMenuButton) {
             deleteSelected();
-            Toast.makeText(this, getString(R.string.message_phone_deleted), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.message_item_deleted), Toast.LENGTH_SHORT).show();
             return true;
         }
         // Editing existing phone
@@ -91,7 +91,7 @@ public class PhonesDatabaseBrowsingActivity extends AppCompatActivity {
         // Deleting all phones in database
         else if (itemId == R.id.deleteAllPhonesFromDatabaseMenuButton) {
             mPhoneViewModel.deleteAll();
-            Toast.makeText(this, getString(R.string.message_all_phones_deleted), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.message_item_deleted_all), Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -175,6 +175,7 @@ public class PhonesDatabaseBrowsingActivity extends AppCompatActivity {
                 List<Phone> phoneList = mPhoneViewModel.getAllPhones().getValue();
                 if (phoneList != null) {
                     mPhoneViewModel.deletePhone(phoneList.get(viewHolder.getAdapterPosition()));
+                    Toast.makeText(PhonesDatabaseBrowsingActivity.this, getString(R.string.message_item_deleted), Toast.LENGTH_SHORT).show();
                 }
             }
 

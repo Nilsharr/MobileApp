@@ -1,8 +1,6 @@
 package com.example.app.activities;
 
 
-import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,22 +55,6 @@ public class DrawingActivity extends AppCompatActivity {
             dialog.show();
             return true;
         }
-        // Changing background color
-        else if (itemId == R.id.changeBackgroundColorMenuButton) {
-            AmbilWarnaDialog dialog = new AmbilWarnaDialog(this, surface.getBackgroundColor(), new AmbilWarnaDialog.OnAmbilWarnaListener() {
-                @Override
-                public void onCancel(AmbilWarnaDialog dialog) {
-                }
-
-                @Override
-                public void onOk(AmbilWarnaDialog dialog, int color) {
-                    surface.setBackgroundColor(color);
-                    surface.refreshBackgroundColor();
-                }
-            });
-            dialog.show();
-            return true;
-        }
         // Clearing screen
         else if (itemId == R.id.clearScreenMenuButton) {
             surface.clearScreen();
@@ -82,13 +64,14 @@ public class DrawingActivity extends AppCompatActivity {
         else if (itemId == R.id.changePaintWidthMenuButton) {
 
             final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setMessage("Set paint width");
+            alert.setMessage(getString(R.string.dialog_item_set_paint_width));
 
             LinearLayout linear = new LinearLayout(this);
             linear.setOrientation(LinearLayout.VERTICAL);
 
             SeekBar seek = new SeekBar(this);
             seek.setMin(1);
+            seek.setMax(50);
             seek.setProgress(paintWidth = (int) surface.getPaintWidth());
             seek.setPadding(40, 10, 40, 10);
 
@@ -99,8 +82,7 @@ public class DrawingActivity extends AppCompatActivity {
             seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    paintWidth = progress;
-                    text.setText(String.valueOf(paintWidth));
+                    text.setText(String.valueOf(progress));
                 }
 
                 @Override
@@ -109,6 +91,7 @@ public class DrawingActivity extends AppCompatActivity {
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
+                    paintWidth = seekBar.getProgress();
                 }
             });
 
@@ -116,10 +99,25 @@ public class DrawingActivity extends AppCompatActivity {
             linear.addView(text);
             alert.setView(linear);
 
-            alert.setPositiveButton("Ok", (dialog, id) -> surface.setPaintWidth(paintWidth));
-            alert.setNegativeButton("Cancel", (dialog, id) -> {
+            alert.setPositiveButton(getString(R.string.information_ok), (dialog, id) -> surface.setPaintWidth(paintWidth));
+            alert.setNegativeButton(getString(R.string.information_cancel), (dialog, id) -> {
             });
             alert.show();
+            return true;
+        }
+        // Changing background color
+        else if (itemId == R.id.changeBackgroundColorMenuButton) {
+            AmbilWarnaDialog dialog = new AmbilWarnaDialog(this, surface.getBackgroundColor(), new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                @Override
+                public void onCancel(AmbilWarnaDialog dialog) {
+                }
+
+                @Override
+                public void onOk(AmbilWarnaDialog dialog, int color) {
+                    surface.setBackgroundColor(color);
+                }
+            });
+            dialog.show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -132,15 +130,6 @@ public class DrawingActivity extends AppCompatActivity {
         surface = findViewById(R.id.drawingSurface);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-        switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-            case Configuration.UI_MODE_NIGHT_NO:
-                surface.setBackgroundColor(Color.WHITE);
-                break;
-            case Configuration.UI_MODE_NIGHT_YES:
-                surface.setBackgroundColor(Color.BLACK);
-                break;
-        }
     }
 
     @Override
@@ -154,5 +143,4 @@ public class DrawingActivity extends AppCompatActivity {
         super.onPause();
         surface.pauseDrawing();
     }
-
 }

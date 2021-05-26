@@ -4,6 +4,22 @@
     <string name="toolbar_name_phones_database_app">Phone Database</string>
     <string name="toolbar_name_drawing">Draw</string>
 
+    <!--general-->
+
+    <string name="information_item_add">Add</string>
+    <string name="information_item_edit">Edit</string>
+    <string name="information_item_delete">Delete</string>
+    <string name="information_item_delete_all">Delete all</string>
+    <string name="information_ok">OK</string>
+    <string name="information_save">Save</string>
+    <string name="information_cancel">Cancel</string>
+    <string name="information_ready">Ready</string>
+    <string name="information_empty">No data</string>
+    <string name="message_item_saved">Saved successfully</string>
+    <string name="message_item_deleted">Successfully deleted</string>
+    <string name="message_item_deleted_all">Successfully deleted all</string>
+    <!--general-->
+
     <!--activity_main-->
     <string name="app_name_grades_average">Calculate the Grades Average</string>
     <string name="app_name_phones_database">Database of Mobile Phones</string>
@@ -28,7 +44,6 @@
     <!--activity_grades_form-->
 
     <!--activity_grades_selection-->
-    <string name="button_grades_ready">Ready</string>
     <string name="error_grades_not_checked">Not all grades have been checked</string>
     <!--activity_grades_selection-->
 
@@ -40,33 +55,17 @@
     <string name="grade_five" translatable="false">5</string>
     <!--grades_group-->
 
-    <!--phone_browsing_menu-->
-    <string name="menu_item_add_to_database">Add</string>
-    <string name="menu_item_delete_from_database">Delete</string>
-    <string name="menu_item_edit_database">Edit</string>
-    <string name="menu_item_delete_all_from_database">Delete all</string>
-    <!--phone_browsing_menu-->
-
-    <!--activity_phones_database_browsing-->
-    <string name="phone_database_empty_info">No data</string>
-    <string name="message_phone_deleted">Successfully deleted</string>
-    <string name="message_all_phones_deleted">Successfully deleted all</string>
-    <!--activity_phones_database_browsing-->
-
     <!--activity_phone_database_form-->
     <string name="label_phone_manufacturer">Manufacturer:</string>
     <string name="label_phone_model">Model:</string>
     <string name="label_phone_android_version">Android version:</string>
     <string name="label_phone_website" translatable="false">WWW:</string>
     <string name="button_phone_website" translatable="false">WWW</string>
-    <string name="button_phone_cancel">Cancel</string>
-    <string name="button_phone_save">Save</string>
     <string name="error_phone_manufacturer_input_incorrect">Entered manufacturer name is invalid</string>
     <string name="error_phone_model_input_incorrect">Entered model name is invalid</string>
     <string name="error_phone_android_version_incorrect">Entered android version is invalid</string>
     <string name="error_phone_website_input_incorrect">Entered website address is invalid</string>
     <string name="message_entered_phone_data_invalid">Not all entered data is valid</string>
-    <string name="message_saved_phone_successfully">Saved successfully</string>
 
     <string-array name="phone_manufacturers_list">
         <item>Asus</item>
@@ -93,9 +92,10 @@
 
     <!--activity_drawing-->
     <string name="menu_item_change_paint_color">Change paint color</string>
-    <string name="menu_item_change_background_color">Change background color</string>
-    <string name="menu_item_change_paint_width">Change paint width</string>
     <string name="menu_item_clear_screen">Clear screen</string>
+    <string name="menu_item_change_paint_width">Change paint width</string>
+    <string name="dialog_item_set_paint_width">Set paint width</string>
+    <string name="menu_item_change_background_color">Change background color</string>
     <!--activity_drawing-->
 
 </resources>
