@@ -48,8 +48,7 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
         }
     }
 
-    @Override
-    public void setBackgroundColor(int backgroundColor) {
+    public void changeBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
         backgroundCanvas.drawColor(backgroundColor);
     }
