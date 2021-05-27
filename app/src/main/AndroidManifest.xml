@@ -32,7 +32,11 @@
 
         <activity
             android:name="com.example.app.activities.DrawingActivity"
-            android:label="@string/toolbar_name_drawing" />
+            android:label="@string/toolbar_name_drawing_app" />
+
+        <activity
+            android:name="com.example.app.activities.FileDownloadActivity"
+            android:label="@string/toolbar_name_file_download_app" />
 
     </application>
 

@@ -62,7 +62,7 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
         phoneManufacturerInput.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, manufacturers));
 
         // Allows to lose focus on view and closes keyboard on screen touch
-        findViewById(R.id.PhonesDatabaseFormActivity).setOnTouchListener((view, event) -> {
+        findViewById(R.id.phonesDatabaseFormLayout).setOnTouchListener((view, event) -> {
             Utilities.clearFocusAndHideKeyboard(view);
             view.performClick();
             return false;
@@ -134,7 +134,7 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
                 Toast.makeText(this, getString(R.string.message_item_saved), Toast.LENGTH_SHORT).show();
                 finish();
             } else {
-                Utilities.clearFocusAndHideKeyboard(findViewById(R.id.PhonesDatabaseFormActivity));
+                Utilities.clearFocusAndHideKeyboard(findViewById(R.id.phonesDatabaseFormLayout));
                 Toast.makeText(this, getString(R.string.message_entered_phone_data_invalid), Toast.LENGTH_SHORT).show();
             }
         });

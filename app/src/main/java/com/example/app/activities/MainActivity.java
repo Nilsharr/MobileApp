@@ -2,7 +2,6 @@ package com.example.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,9 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.drawingAppButton).setOnClickListener(view -> startActivity(new Intent(MainActivity.this, DrawingActivity.class)));
 
-        findViewById(R.id.placeholder2Button).setOnClickListener(view -> {
-            Toast.makeText(this, "Someday there will be something here", Toast.LENGTH_SHORT).show();
-            //startActivity(new Intent(MainActivity.this, Placeholder2.class));
-        });
+        findViewById(R.id.fileDownloadAppButton).setOnClickListener(view -> startActivity(new Intent(MainActivity.this, FileDownloadActivity.class)));
     }
 }

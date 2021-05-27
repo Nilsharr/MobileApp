@@ -2,10 +2,18 @@
     <string name="app_name">Mobile App</string>
     <string name="toolbar_name_grades_average">Grades Average</string>
     <string name="toolbar_name_phones_database_app">Phone Database</string>
-    <string name="toolbar_name_drawing">Draw</string>
+    <string name="toolbar_name_drawing_app">Draw</string>
+    <string name="toolbar_name_file_download_app">File</string>
 
+    <!--activity_main-->
+    <string name="app_name_grades_average">Calculate the Grades Average</string>
+    <string name="app_name_phones_database">Database of Mobile Phones</string>
+    <string name="app_name_drawing">Drawing</string>
+    <string name="app_name_file_download">File download</string>
+    <!--activity_main-->
+
+    <!--swap general with android impl?  android:string -->
     <!--general-->
-
     <string name="information_item_add">Add</string>
     <string name="information_item_edit">Edit</string>
     <string name="information_item_delete">Delete</string>
@@ -14,18 +22,12 @@
     <string name="information_save">Save</string>
     <string name="information_cancel">Cancel</string>
     <string name="information_ready">Ready</string>
-    <string name="information_empty">No data</string>
+    <string name="information_no_data">No data</string>
     <string name="message_item_saved">Saved successfully</string>
     <string name="message_item_deleted">Successfully deleted</string>
     <string name="message_item_deleted_all">Successfully deleted all</string>
+    <string name="label_no_data" translatable="false">-</string>
     <!--general-->
-
-    <!--activity_main-->
-    <string name="app_name_grades_average">Calculate the Grades Average</string>
-    <string name="app_name_phones_database">Database of Mobile Phones</string>
-    <string name="app_name_drawing">Drawing</string>
-    <string name="app_name_placeholder">Placeholder</string>
-    <!--activity_main-->
 
     <!--activity_grades_form-->
     <string name="label_grades_name">Name:</string>
@@ -97,5 +99,14 @@
     <string name="dialog_item_set_paint_width">Set paint width</string>
     <string name="menu_item_change_background_color">Change background color</string>
     <!--activity_drawing-->
+
+    <!--activity_file_download-->
+    <string name="label_file_download_address">Address:</string>
+    <string name="label_file_download_size">File size:</string>
+    <string name="label_file_download_type">File type:</string>
+    <string name="label_file_download_progress">Downloaded [%]:</string>
+    <string name="button_file_download_information">Download information</string>
+    <string name="button_file_download">Download file</string>
+    <!--activity_file_download-->
 
 </resources>

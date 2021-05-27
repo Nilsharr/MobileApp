@@ -3,10 +3,17 @@
     <string name="app_name">Aplikacja Mobilna</string>
     <string name="toolbar_name_grades_average">Średnia Ocen</string>
     <string name="toolbar_name_phones_database_app">Baza Telefonów</string>
-    <string name="toolbar_name_drawing">Rysuj</string>
+    <string name="toolbar_name_drawing_app">Rysuj</string>
+    <string name="toolbar_name_file_download_app">Plik</string>
+
+    <!--activity_main-->
+    <string name="app_name_grades_average">Oblicz Średnią Ocen</string>
+    <string name="app_name_phones_database">Baza Danych Telefonów Mobilnych</string>
+    <string name="app_name_drawing">Rysowanie</string>
+    <string name="app_name_file_download">Pobieranie pliku</string>
+    <!--activity_main-->
 
     <!--general-->
-
     <string name="information_item_add">Dodaj</string>
     <string name="information_item_edit">Edytuj</string>
     <string name="information_item_delete">Usuń</string>
@@ -15,18 +22,11 @@
     <string name="information_save">Zapisz</string>
     <string name="information_cancel">Anuluj</string>
     <string name="information_ready">Gotowe</string>
-    <string name="information_empty">Brak danych</string>
+    <string name="information_no_data">Brak danych</string>
     <string name="message_item_saved">Zapisano pomyślnie</string>
     <string name="message_item_deleted">Pomyślnie usunięto</string>
     <string name="message_item_deleted_all">Pomyślnie usunięto wszystko</string>
     <!--general-->
-
-    <!--activity_main-->
-    <string name="app_name_grades_average">Oblicz Średnią Ocen</string>
-    <string name="app_name_phones_database">Baza Danych Telefonów Mobilnych</string>
-    <string name="app_name_drawing">Rysowanie</string>
-    <string name="app_name_placeholder">Placeholder</string>
-    <!--activity_main-->
 
     <!--activity_grades_form-->
     <string name="label_grades_name">Imię:</string>
@@ -67,5 +67,14 @@
     <string name="dialog_item_set_paint_width">Ustaw szerokość pędzla</string>
     <string name="menu_item_change_background_color">Zmień kolor tła</string>
     <!--activity_drawing-->
+
+    <!--activity_file_download-->
+    <string name="label_file_download_address">Adres:</string>
+    <string name="label_file_download_size">Rozmiar pliku:</string>
+    <string name="label_file_download_type">Typ pliku:</string>
+    <string name="label_file_download_progress">Pobrano [%]:</string>
+    <string name="button_file_download_information">Pobierz informacje</string>
+    <string name="button_file_download">Pobierz plik</string>
+    <!--activity_file_download-->
 
 </resources>

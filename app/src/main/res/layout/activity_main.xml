@@ -79,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/placeholder2Button"
+        app:layout_constraintBottom_toTopOf="@+id/fileDownloadAppButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,15 +87,15 @@
 
 
     <Button
-        android:id="@+id/placeholder2Button"
+        android:id="@+id/fileDownloadAppButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:gravity="start|center_vertical"
-        android:text="@string/app_name_placeholder"
-        android:textSize="16sp"
+        android:text="@string/app_name_file_download"
         android:textAllCaps="false"
         android:textColor="@color/invertedBlackWhite"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/divider3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
@@ -110,6 +110,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/placeholder2Button" />
+        app:layout_constraintTop_toBottomOf="@+id/fileDownloadAppButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
