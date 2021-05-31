@@ -35,10 +35,10 @@
     <string name="button_grades_proceed">Oceny</string>
     <string name="button_grades_passed">Super :)</string>
     <string name="button_grades_failed">Tym razem mi nie poszło</string>
-    <string name="error_grades_name_input_incorrect">Wprowadzone imię jest nieprawidłowe</string>
-    <string name="error_grades_surname_input_incorrect">Wprowadzone nazwisko jest nieprawidłowe</string>
+    <string name="error_grades_name_input_invalid">Wprowadzone imię jest nieprawidłowe</string>
+    <string name="error_grades_surname_input_invalid">Wprowadzone nazwisko jest nieprawidłowe</string>
     <string name="error_grades_amount_input_empty">Liczba ocen nie może być pusta</string>
-    <string name="error_grades_amount_input_incorrect_range">Liczba ocen musi należeć do przedziału [5;15]</string>
+    <string name="error_grades_amount_input_invalid_range">Liczba ocen musi należeć do przedziału [5;15]</string>
     <string name="message_mean_result">Twoja średnia to %.2f</string>
     <string name="message_grades_passed">Gratulacje! Otrzymujesz zaliczenie!</string>
     <string name="message_grades_failed">Wysyłam podanie o zaliczenie warunkowe</string>
@@ -53,10 +53,10 @@
     <string name="label_phone_manufacturer">Producent:</string>
     <string name="label_phone_model">Model:</string>
     <string name="label_phone_android_version">Wersja androida:</string>
-    <string name="error_phone_manufacturer_input_incorrect">Wprowadzona nazwa producenta jest nieprawidłowa</string>
-    <string name="error_phone_model_input_incorrect">Wprowadzona nazwa modelu jest nieprawidłowa</string>
-    <string name="error_phone_android_version_incorrect">Wprowadzona wersja androida jest nieprawidłowa</string>
-    <string name="error_phone_website_input_incorrect">Wprowadzony adres strony internetowej jest nieprawidłowy</string>
+    <string name="error_phone_manufacturer_input_invalid">Wprowadzona nazwa producenta jest nieprawidłowa</string>
+    <string name="error_phone_model_input_invalid">Wprowadzona nazwa modelu jest nieprawidłowa</string>
+    <string name="error_phone_android_version_invalid">Wprowadzona wersja androida jest nieprawidłowa</string>
+    <string name="error_phone_website_input_invalid">Wprowadzony adres strony internetowej jest nieprawidłowy</string>
     <string name="message_entered_phone_data_invalid">Nie wszystkie wprowadzone dane są prawidłowe</string>
     <!--activity_phone_database_form-->
 
@@ -75,6 +75,7 @@
     <string name="label_file_download_progress">Pobrano [%]:</string>
     <string name="button_file_download_information">Pobierz informacje</string>
     <string name="button_file_download">Pobierz plik</string>
+    <string name="error_file_download_address_input_invalid">Wprowadzony adres pobierania jest nieprawidłowy</string>
     <!--activity_file_download-->
 
 </resources>

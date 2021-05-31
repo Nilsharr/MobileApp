@@ -105,7 +105,7 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
                 }
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlAddress)));
             } else {
-                Toast.makeText(this, getString(R.string.error_phone_website_input_incorrect), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.error_phone_website_input_invalid), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -155,10 +155,10 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
         if (!hasFocus) {
             // hash map with error messages for adequate input field
             HashMap<Integer, String> errorMessage = new HashMap<Integer, String>() {{
-                put(R.id.phoneManufacturerInput, getString(R.string.error_phone_manufacturer_input_incorrect));
-                put(R.id.phoneModelInput, getString(R.string.error_phone_model_input_incorrect));
-                put(R.id.phoneAndroidVersionInput, getString(R.string.error_phone_android_version_incorrect));
-                put(R.id.phoneWebsiteInput, getString(R.string.error_phone_website_input_incorrect));
+                put(R.id.phoneManufacturerInput, getString(R.string.error_phone_manufacturer_input_invalid));
+                put(R.id.phoneModelInput, getString(R.string.error_phone_model_input_invalid));
+                put(R.id.phoneAndroidVersionInput, getString(R.string.error_phone_android_version_invalid));
+                put(R.id.phoneWebsiteInput, getString(R.string.error_phone_website_input_invalid));
             }};
             // hash map with regex for adequate input field
             HashMap<Integer, String> regex = new HashMap<Integer, String>() {{
@@ -169,7 +169,7 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
             }};
 
             // setting appropriate error message if input doesn't match regex
-            if (!((EditText) view).getText().toString().matches(Objects.requireNonNull(regex.get(view.getId()), "No regex found for given view"))) {
+            if (!((EditText) view).getText().toString().matches(Objects.requireNonNull(regex.get(view.getId()), "No regex found for given view id"))) {
                 ((EditText) view).setError(errorMessage.get(view.getId()));
             }
         }

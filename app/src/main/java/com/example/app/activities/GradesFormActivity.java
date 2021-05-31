@@ -150,7 +150,7 @@ public class GradesFormActivity extends AppCompatActivity {
                     int gradesNumber = Integer.parseInt(gradesAmountInput.getText().toString());
                     if (gradesNumber < 5 || gradesNumber > 15) {
                         // setting appropriate error message
-                        gradesAmountInput.setError(getString(R.string.error_grades_amount_input_incorrect_range));
+                        gradesAmountInput.setError(getString(R.string.error_grades_amount_input_invalid_range));
                         // setting button to Invisible
                         gradesProceedButton.setVisibility(View.INVISIBLE);
                     }
@@ -162,8 +162,8 @@ public class GradesFormActivity extends AppCompatActivity {
                 if (isInvalidWord(((EditText) view).getText().toString())) {
                     // error messages when input is incorrect for selected fields
                     HashMap<Integer, String> errorMessage = new HashMap<Integer, String>() {{
-                        put(R.id.gradesNameInput, getString(R.string.error_grades_name_input_incorrect));
-                        put(R.id.gradesSurnameInput, getString(R.string.error_grades_surname_input_incorrect));
+                        put(R.id.gradesNameInput, getString(R.string.error_grades_name_input_invalid));
+                        put(R.id.gradesSurnameInput, getString(R.string.error_grades_surname_input_invalid));
                     }};
 
                     // setting appropriate error message

@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/editPhoneInDatabaseMenuButton"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/ic_baseline_edit_24"
         android:title="@string/information_item_edit"
         android:visible="false"
         app:showAsAction="always"
@@ -23,7 +23,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/deleteAllPhonesFromDatabaseMenuButton"
-        android:icon="@android:drawable/ic_menu_delete"
+        android:icon="@drawable/ic_baseline_delete_24"
         android:title="@string/information_item_delete_all"
         android:visible="false" />
 </menu>
