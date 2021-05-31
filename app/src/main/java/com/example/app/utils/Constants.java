@@ -13,4 +13,6 @@ public abstract class Constants {
     public static final String SAVED_PAINT_WIDTH = "savedPaintWidth";
     public static final String SAVED_COMPRESSED_DRAWING_BITMAP = "savedCompressedDrawingBitmap";
     public static final String SAVED_COMPRESSED_BACKGROUND_BITMAP = "savedCompressedBackgroundBitmap";
+
+    public static final String DOWNLOAD_ADDRESS = "";
 }
