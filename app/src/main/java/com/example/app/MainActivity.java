@@ -1,4 +1,4 @@
-package com.example.app.activities;
+package com.example.app;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.app.R;
+import com.example.app.drawing_app.activities.DrawingActivity;
+import com.example.app.file_download_app.activities.FileDownloadActivity;
+import com.example.app.grades_average_app.activities.GradesFormActivity;
+import com.example.app.phone_database_app.activities.PhonesDatabaseBrowsingActivity;
 
 public class MainActivity extends AppCompatActivity {
     @Override

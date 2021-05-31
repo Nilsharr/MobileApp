@@ -1,4 +1,4 @@
-package com.example.app.activities;
+package com.example.app.file_download_app.activities;
 
 import android.os.Bundle;
 import android.util.Patterns;
@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.R;
+import com.example.app.utils.Constants;
 import com.example.app.utils.Utilities;
 
 import java.util.Objects;
@@ -60,6 +61,8 @@ public class FileDownloadActivity extends AppCompatActivity {
         fileDownloadAddressInput.setHorizontallyScrolling(false);
         fileDownloadAddressInput.setMaxLines(3);
 
+        fileDownloadAddressInput.setText(Constants.DOWNLOAD_ADDRESS);
+        setButtonsEnabled(isLinkValid());
 
         // creating home button
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);

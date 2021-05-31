@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".activities.GradesFormActivity">
+    tools:context=".grades_average_app.activities.GradesFormActivity">
 
     <TextView
         android:id="@+id/gradesNameLabel"

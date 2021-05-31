@@ -1,4 +1,4 @@
-package com.example.app.adapters;
+package com.example.app.grades_average_app.adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

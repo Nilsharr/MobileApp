@@ -1,4 +1,4 @@
-package com.example.app.activities;
+package com.example.app.drawing_app.activities;
 
 
 import android.graphics.Bitmap;
@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.R;
 import com.example.app.utils.Constants;
-import com.example.app.views.DrawingSurface;
+import com.example.app.drawing_app.views.DrawingSurface;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Objects;

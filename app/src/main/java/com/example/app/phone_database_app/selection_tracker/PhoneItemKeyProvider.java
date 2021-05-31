@@ -1,10 +1,10 @@
-package com.example.app.phone_selection_tracker;
+package com.example.app.phone_database_app.selection_tracker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.selection.ItemKeyProvider;
 
-import com.example.app.phone_database.Phone;
+import com.example.app.phone_database_app.database.Phone;
 
 import java.util.HashMap;
 import java.util.List;

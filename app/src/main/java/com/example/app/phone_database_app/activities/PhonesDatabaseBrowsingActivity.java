@@ -1,4 +1,4 @@
-package com.example.app.activities;
+package com.example.app.phone_database_app.activities;
 
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -26,11 +26,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app.R;
-import com.example.app.adapters.PhoneAdapter;
-import com.example.app.phone_database.Phone;
-import com.example.app.views.PhoneViewModel;
-import com.example.app.phone_selection_tracker.PhoneItemDetailsLookup;
-import com.example.app.phone_selection_tracker.PhoneItemKeyProvider;
+import com.example.app.phone_database_app.adapters.PhoneAdapter;
+import com.example.app.phone_database_app.database.Phone;
+import com.example.app.phone_database_app.views.PhoneViewModel;
+import com.example.app.phone_database_app.selection_tracker.PhoneItemDetailsLookup;
+import com.example.app.phone_database_app.selection_tracker.PhoneItemKeyProvider;
 import com.example.app.utils.Constants;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.app.phone_selection_tracker;
+package com.example.app.phone_database_app.selection_tracker;
 
 import android.view.MotionEvent;
 

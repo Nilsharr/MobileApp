@@ -1,4 +1,4 @@
-package com.example.app.activities;
+package com.example.app.grades_average_app.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.app.R;
-import com.example.app.adapters.GradesAdapter;
+import com.example.app.grades_average_app.adapters.GradesAdapter;
 
 import java.util.Arrays;
 import java.util.Objects;

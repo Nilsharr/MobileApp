@@ -1,4 +1,4 @@
-package com.example.app.views;
+package com.example.app.phone_database_app.views;
 
 import android.app.Application;
 
@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.app.phone_database.Phone;
-import com.example.app.phone_database.PhoneRepository;
+import com.example.app.phone_database_app.database.Phone;
+import com.example.app.phone_database_app.database.PhoneRepository;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidApp">
-        <activity android:name="com.example.app.activities.MainActivity">
+        <activity android:name="com.example.app.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,25 +17,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.app.activities.GradesFormActivity"
+            android:name="com.example.app.grades_average_app.activities.GradesFormActivity"
             android:label="@string/toolbar_name_grades_average" />
         <activity
-            android:name="com.example.app.activities.GradesSelectionActivity"
+            android:name="com.example.app.grades_average_app.activities.GradesSelectionActivity"
             android:label="@string/toolbar_name_grades_average" />
 
         <activity
-            android:name="com.example.app.activities.PhonesDatabaseFormActivity"
+            android:name="com.example.app.phone_database_app.activities.PhonesDatabaseFormActivity"
             android:label="@string/toolbar_name_phones_database_app" />
         <activity
-            android:name="com.example.app.activities.PhonesDatabaseBrowsingActivity"
+            android:name="com.example.app.phone_database_app.activities.PhonesDatabaseBrowsingActivity"
             android:label="@string/toolbar_name_phones_database_app" />
 
         <activity
-            android:name="com.example.app.activities.DrawingActivity"
+            android:name="com.example.app.drawing_app.activities.DrawingActivity"
             android:label="@string/toolbar_name_drawing_app" />
 
         <activity
-            android:name="com.example.app.activities.FileDownloadActivity"
+            android:name="com.example.app.file_download_app.activities.FileDownloadActivity"
             android:label="@string/toolbar_name_file_download_app" />
 
     </application>

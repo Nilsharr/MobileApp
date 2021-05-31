@@ -1,4 +1,4 @@
-package com.example.app.phone_selection_tracker;
+package com.example.app.phone_database_app.selection_tracker;
 
 import android.view.MotionEvent;
 import android.view.View;
@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.selection.ItemDetailsLookup;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.app.adapters.PhoneAdapter;
+import com.example.app.phone_database_app.adapters.PhoneAdapter;
 
 public class PhoneItemDetailsLookup extends ItemDetailsLookup<Long> {
     private final RecyclerView mRecyclerView;

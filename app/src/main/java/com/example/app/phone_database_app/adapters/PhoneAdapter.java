@@ -1,4 +1,4 @@
-package com.example.app.adapters;
+package com.example.app.phone_database_app.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +11,9 @@ import androidx.recyclerview.selection.SelectionTracker;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app.R;
-import com.example.app.phone_database.Phone;
-import com.example.app.phone_selection_tracker.PhoneItemDetails;
-import com.example.app.phone_selection_tracker.PhoneItemKeyProvider;
+import com.example.app.phone_database_app.database.Phone;
+import com.example.app.phone_database_app.selection_tracker.PhoneItemDetails;
+import com.example.app.phone_database_app.selection_tracker.PhoneItemKeyProvider;
 
 import java.util.List;
 

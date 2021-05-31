@@ -14,5 +14,5 @@ public abstract class Constants {
     public static final String SAVED_COMPRESSED_DRAWING_BITMAP = "savedCompressedDrawingBitmap";
     public static final String SAVED_COMPRESSED_BACKGROUND_BITMAP = "savedCompressedBackgroundBitmap";
 
-    public static final String DOWNLOAD_ADDRESS = "";
+    public static final String DOWNLOAD_ADDRESS = "https://drive.google.com/file/d/1AaROeMVncnVJdYYIK3FgT_XKw_tmYatl/view?usp=sharing";
 }

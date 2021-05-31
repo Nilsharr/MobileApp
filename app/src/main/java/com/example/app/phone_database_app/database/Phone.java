@@ -1,4 +1,4 @@
-package com.example.app.phone_database;
+package com.example.app.phone_database_app.database;
 
 import android.os.Parcel;
 import android.os.Parcelable;

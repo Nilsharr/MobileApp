@@ -1,4 +1,4 @@
-package com.example.app.activities;
+package com.example.app.phone_database_app.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.R;
-import com.example.app.phone_database.Phone;
+import com.example.app.phone_database_app.database.Phone;
 import com.example.app.utils.Constants;
 import com.example.app.utils.Utilities;
 

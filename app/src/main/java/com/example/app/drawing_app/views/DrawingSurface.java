@@ -1,4 +1,4 @@
-package com.example.app.views;
+package com.example.app.drawing_app.views;
 
 import android.content.Context;
 import android.content.res.Configuration;
