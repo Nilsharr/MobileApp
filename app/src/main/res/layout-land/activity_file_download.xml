@@ -31,6 +31,7 @@
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="textUri"
+        android:imeOptions="flagNoExtractUi"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toTopOf="@+id/fileDownloadInformationButton"
         app:layout_constraintEnd_toEndOf="parent"

@@ -100,10 +100,7 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
         findViewById(R.id.phoneWebsiteButton).setOnClickListener(view -> {
             String urlAddress = phoneWebsiteInput.getText().toString();
             if (Patterns.WEB_URL.matcher(urlAddress).matches()) {
-                if (!urlAddress.startsWith("https://") && !urlAddress.startsWith("http://")) {
-                    urlAddress = "https://" + urlAddress;
-                }
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlAddress)));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Utilities.formattedURLString(urlAddress))));
             } else {
                 Toast.makeText(this, getString(R.string.error_phone_website_input_invalid), Toast.LENGTH_SHORT).show();
             }

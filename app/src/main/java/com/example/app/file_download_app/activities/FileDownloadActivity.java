@@ -1,6 +1,11 @@
 package com.example.app.file_download_app.activities;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
@@ -15,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.R;
+import com.example.app.file_download_app.GetFileInfo;
 import com.example.app.utils.Constants;
 import com.example.app.utils.Utilities;
 
@@ -29,8 +35,11 @@ public class FileDownloadActivity extends AppCompatActivity {
     private TextView fileDownloadProgressValueLabel;
     private ProgressBar fileDownloadProgressBar;
 
-    @Override
+    // https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_10mb.mp4
+    // https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_30mb.mp4
+    private static final String DOWNLOAD_ADDRESS = "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_30mb.mp4";
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Returning to previous activity
         if (item.getItemId() == android.R.id.home) {
@@ -52,17 +61,13 @@ public class FileDownloadActivity extends AppCompatActivity {
         fileDownloadProgressValueLabel = findViewById(R.id.fileDownloadProgressValueLabel);
         fileDownloadProgressBar = findViewById(R.id.fileDownloadProgressBar);
 
-        //fileDownloadSizeValueLabel.setText("qwefdgrty");
-        //fileDownloadTypeValueLabel.setText("qwerty");
-        //fileDownloadProgressValueLabel.setText("qwty");
-
         fileDownloadAddressInput = findViewById(R.id.fileDownloadAddressInput);
         // allowing multiline text and setting max lines to 3 (with done action button)
         fileDownloadAddressInput.setHorizontallyScrolling(false);
         fileDownloadAddressInput.setMaxLines(3);
 
-        fileDownloadAddressInput.setText(Constants.DOWNLOAD_ADDRESS);
-        setButtonsEnabled(isLinkValid());
+
+        fileDownloadAddressInput.setText(DOWNLOAD_ADDRESS);
 
         // creating home button
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -82,54 +87,66 @@ public class FileDownloadActivity extends AppCompatActivity {
             return false;
         });
 
-        /*
-        String urlAddress = fileDownloadAddressInput.getText().toString();
-            if (Patterns.WEB_URL.matcher(urlAddress).matches()) {
-                if (!urlAddress.startsWith("https://") && !urlAddress.startsWith("http://")) {
-                    urlAddress = "https://" + urlAddress;
-                }
-         */
+        fileDownloadAddressInput.addTextChangedListener(new TextWatcher() {
+            final Handler handler = new Handler(Looper.getMainLooper() /*UI thread*/);
+            Runnable workRunnable;
 
-        fileDownloadAddressInput.setOnFocusChangeListener((view, hasFocus) -> {
-            if (!hasFocus) {
-                if (!isLinkValid()) {
-                    fileDownloadAddressInput.setError(getString(R.string.error_file_download_address_input_invalid));
-                    setButtonsEnabled(false);
-                } else {
-                    setButtonsEnabled(true);
-                }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Delaying validation of input field for 1 sec after each written letter
+                handler.removeCallbacks(workRunnable);
+                workRunnable = () -> {
+                    if (!isLinkValid()) {
+                        fileDownloadAddressInput.setError(getString(R.string.error_file_download_address_input_invalid));
+                    }
+                };
+                handler.postDelayed(workRunnable, 1000);
+                setButtonsEnabled();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
 
-        fileDownloadInformationButton.setOnClickListener(view -> {
-            if (isLinkValid()) {
-                Toast.makeText(this, "xd", Toast.LENGTH_SHORT).show();
-            } else {
-                setButtonsEnabled(false);
-            }
+        fileDownloadInformationButton.setOnClickListener(view ->
+                new GetFileInfo(fileInfo -> {
+                    if (fileInfo != null) {
+                        fileDownloadButton.setEnabled(true);
+                        fileDownloadSizeValueLabel.setText(fileInfo.getFileSize());
+                        fileDownloadTypeValueLabel.setText(fileInfo.getFileType());
+                    } else {
+                        Toast.makeText(this, getString(R.string.error_file_download_address_input_invalid), Toast.LENGTH_SHORT).show();
+                    }
+                }).execute(Utilities.formattedURLString(fileDownloadAddressInput.getText().toString())));
+
+        fileDownloadButton.setOnClickListener(view ->
+        {
+            Toast.makeText(this, "xddd", Toast.LENGTH_SHORT).show();
+            //sendBroadcast(new Intent().putExtra("INFO", "info"));
+            //fileDownloadProgressValueLabel.setText("50/100");
+            //fileDownloadProgressBar.setProgress(50);
         });
 
-        fileDownloadButton.setOnClickListener(view -> {
-            if (isLinkValid()) {
-                Toast.makeText(this, "xddd", Toast.LENGTH_SHORT).show();
-            } else {
-                setButtonsEnabled(false);
-            }
-        });
     }
 
     private boolean isLinkValid() {
         return Patterns.WEB_URL.matcher(fileDownloadAddressInput.getText().toString()).matches();
     }
 
-    private void setButtonsEnabled(boolean enabled) {
-        fileDownloadInformationButton.setEnabled(enabled);
-        fileDownloadButton.setEnabled(enabled);
+    private void setButtonsEnabled() {
+        fileDownloadInformationButton.setEnabled(isLinkValid());
+        fileDownloadButton.setEnabled(isLinkValid() && !fileDownloadSizeValueLabel.getText().toString().equals(getString(R.string.label_no_data)));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        setButtonsEnabled();
     }
 
     @Override
@@ -140,12 +157,17 @@ public class FileDownloadActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putString(Constants.SAVED_FILE_DOWNLOAD_SIZE_VALUE_LABEL, fileDownloadSizeValueLabel.getText().toString());
+        outState.putString(Constants.SAVED_FILE_DOWNLOAD_TYPE_VALUE_LABEL, fileDownloadTypeValueLabel.getText().toString());
+        //outState.putString(Constants.SAVED_FILE_DOWNLOAD_PROGRESS_VALUE_LABEL, fileDownloadProgressValueLabel.getText().toString());
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        setButtonsEnabled(isLinkValid());
+        fileDownloadSizeValueLabel.setText(savedInstanceState.getString(Constants.SAVED_FILE_DOWNLOAD_SIZE_VALUE_LABEL));
+        fileDownloadTypeValueLabel.setText(savedInstanceState.getString(Constants.SAVED_FILE_DOWNLOAD_TYPE_VALUE_LABEL));
+        //fileDownloadProgressValueLabel.setText(savedInstanceState.getString(Constants.SAVED_FILE_DOWNLOAD_PROGRESS_VALUE_LABEL));
     }
 }
 
