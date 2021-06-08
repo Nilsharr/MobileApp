@@ -1,29 +1,16 @@
 package com.example.app.utils;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
+import android.net.ConnectivityManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 public abstract class Utilities {
 
-    public static Activity getActivity(View view) {
-        Context context = view.getContext();
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (Activity) context;
-            }
-            context = ((ContextWrapper) context).getBaseContext();
-        }
-        return null;
-    }
-
     // method to close keyboard
-    public static void closeKeyboard(Activity activity) {
-        View view = activity.getCurrentFocus();
+    public static void closeKeyboard(View view) {
         if (view != null) {
-            InputMethodManager manager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager manager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
@@ -33,9 +20,8 @@ public abstract class Utilities {
     // android:focusable="true"
     // android:focusableInTouchMode="true"
     public static void clearFocusAndHideKeyboard(View view) {
-        Activity activity = Utilities.getActivity(view);
-        if (activity != null) {
-            Utilities.closeKeyboard(activity);
+        if (view != null) {
+            Utilities.closeKeyboard(view);
             view.clearFocus();
         }
     }
@@ -45,6 +31,15 @@ public abstract class Utilities {
             url = "https://" + url;
         }
         return url;
+    }
+
+    public static boolean isNetworkConnected(View view) {
+        ConnectivityManager cm = (ConnectivityManager) view.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
+    public static double bytesToMegaBytes(int bytes) {
+        return bytes / 1048576.0;
     }
 
 }

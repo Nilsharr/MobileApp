@@ -76,6 +76,9 @@
     <string name="button_file_download_information">Pobierz informacje</string>
     <string name="button_file_download">Pobierz plik</string>
     <string name="error_file_download_address_input_invalid">Wprowadzony adres pobierania jest nieprawidłowy</string>
+    <string name="notification_file_download_title">Pobieranie pliku</string>
+    <string name="notification_file_download_text_in_progress">Pobieranie w toku</string>
+    <string name="notification_file_download_text_completed">Pobieranie zakończone </string>
     <!--activity_file_download-->
 
 </resources>

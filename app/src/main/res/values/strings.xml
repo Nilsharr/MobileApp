@@ -108,6 +108,9 @@
     <string name="button_file_download_information">Download information</string>
     <string name="button_file_download">Download file</string>
     <string name="error_file_download_address_input_invalid">Entered download address is invalid</string>
+    <string name="notification_file_download_title">File Download</string>
+    <string name="notification_file_download_text_in_progress">Download in progress</string>
+    <string name="notification_file_download_text_completed">Download completed</string>
     <!--activity_file_download-->
 
 </resources>

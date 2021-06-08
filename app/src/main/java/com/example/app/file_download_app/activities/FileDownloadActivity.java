@@ -1,5 +1,11 @@
 package com.example.app.file_download_app.activities;
 
+import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,9 +24,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.app.R;
-import com.example.app.file_download_app.GetFileInfo;
+import com.example.app.file_download_app.FileDownloadService;
+import com.example.app.file_download_app.FileInfo;
+import com.example.app.file_download_app.GetFileInfoTask;
 import com.example.app.utils.Constants;
 import com.example.app.utils.Utilities;
 
@@ -34,10 +44,12 @@ public class FileDownloadActivity extends AppCompatActivity {
     private Button fileDownloadButton;
     private TextView fileDownloadProgressValueLabel;
     private ProgressBar fileDownloadProgressBar;
+    private FileInfo fileInfo;
 
     // https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_10mb.mp4
     // https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_30mb.mp4
-    private static final String DOWNLOAD_ADDRESS = "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_30mb.mp4";
+    // https://effigis.com/wp-content/uploads/2015/02/Airbus_Pleiades_50cm_8bit_RGB_Yogyakarta.jpg
+    private static final String DOWNLOAD_ADDRESS = "https://effigis.com/wp-content/uploads/2015/02/Airbus_Pleiades_50cm_8bit_RGB_Yogyakarta.jpg";
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -113,26 +125,50 @@ public class FileDownloadActivity extends AppCompatActivity {
             }
         });
 
-        fileDownloadInformationButton.setOnClickListener(view ->
-                new GetFileInfo(fileInfo -> {
+        fileDownloadInformationButton.setOnClickListener(view -> {
+            if (Utilities.isNetworkConnected(view)) {
+                new GetFileInfoTask(fileInfo -> {
                     if (fileInfo != null) {
+                        this.fileInfo = fileInfo;
                         fileDownloadButton.setEnabled(true);
-                        fileDownloadSizeValueLabel.setText(fileInfo.getFileSize());
+                        fileDownloadSizeValueLabel.setText(fileInfo.getFileSizeStringInMB());
                         fileDownloadTypeValueLabel.setText(fileInfo.getFileType());
                     } else {
                         Toast.makeText(this, getString(R.string.error_file_download_address_input_invalid), Toast.LENGTH_SHORT).show();
                     }
-                }).execute(Utilities.formattedURLString(fileDownloadAddressInput.getText().toString())));
+                }).execute(Utilities.formattedURLString(fileDownloadAddressInput.getText().toString()));
+            } else {
+                Toast.makeText(this, "no internet", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         fileDownloadButton.setOnClickListener(view ->
         {
-            Toast.makeText(this, "xddd", Toast.LENGTH_SHORT).show();
-            //sendBroadcast(new Intent().putExtra("INFO", "info"));
-            //fileDownloadProgressValueLabel.setText("50/100");
-            //fileDownloadProgressBar.setProgress(50);
+            if (Utilities.isNetworkConnected(view)) {
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    FileDownloadService.startService(this, Utilities.formattedURLString(fileDownloadAddressInput.getText().toString()));
+                } else {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    }
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.WRITE_EXTERNAL_STORAGE_REQUEST_CODE);
+                }
+            } else {
+                Toast.makeText(this, "no internet", Toast.LENGTH_SHORT).show();
+            }
         });
 
     }
+
+    private final BroadcastReceiver downloadReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            fileInfo = intent.getParcelableExtra(FileDownloadService.SAVED_FILE);
+
+            fileDownloadProgressValueLabel.setText(fileInfo.getDataDownloadedStringInMB());
+            //Log.d("por", fileInfo.getDataDownloaded() * 100 + "   " + fileInfo.getFileSize() + "   " + 100 * (fileInfo.getDataDownloaded() / (double) fileInfo.getFileSize()));
+            fileDownloadProgressBar.setProgress((int) (100 * (fileInfo.getDataDownloaded() / (double) fileInfo.getFileSize())));
+        }
+    };
 
     private boolean isLinkValid() {
         return Patterns.WEB_URL.matcher(fileDownloadAddressInput.getText().toString()).matches();
@@ -144,30 +180,55 @@ public class FileDownloadActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Constants.WRITE_EXTERNAL_STORAGE_REQUEST_CODE) {
+            if (permissions[0].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE) && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                FileDownloadService.startService(this, Utilities.formattedURLString(fileDownloadAddressInput.getText().toString()));
+            } else {
+                Toast.makeText(this, "sadge", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+        // todo jezeli fileinfo istnieje ustawienie labeli
+        // jezeli result = complete
         setButtonsEnabled();
+        LocalBroadcastManager.getInstance(this).registerReceiver(downloadReceiver, new IntentFilter(FileDownloadService.BROADCAST));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(downloadReceiver);
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d("halo", "olah");
+        super.onStop();
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(Constants.SAVED_FILE_DOWNLOAD_SIZE_VALUE_LABEL, fileDownloadSizeValueLabel.getText().toString());
-        outState.putString(Constants.SAVED_FILE_DOWNLOAD_TYPE_VALUE_LABEL, fileDownloadTypeValueLabel.getText().toString());
-        //outState.putString(Constants.SAVED_FILE_DOWNLOAD_PROGRESS_VALUE_LABEL, fileDownloadProgressValueLabel.getText().toString());
+        //todo saving to file info
+        outState.putParcelable("filetemp", fileInfo);
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        fileDownloadSizeValueLabel.setText(savedInstanceState.getString(Constants.SAVED_FILE_DOWNLOAD_SIZE_VALUE_LABEL));
-        fileDownloadTypeValueLabel.setText(savedInstanceState.getString(Constants.SAVED_FILE_DOWNLOAD_TYPE_VALUE_LABEL));
-        //fileDownloadProgressValueLabel.setText(savedInstanceState.getString(Constants.SAVED_FILE_DOWNLOAD_PROGRESS_VALUE_LABEL));
+        if ((fileInfo = savedInstanceState.getParcelable("filetemp")) != null) {
+            fileDownloadSizeValueLabel.setText(fileInfo.getFileSizeStringInMB());
+            fileDownloadTypeValueLabel.setText(fileInfo.getFileType());
+            if (fileInfo.getResult() == FileInfo.DOWNLOAD_SUCCESSFUL) {
+                fileDownloadProgressValueLabel.setText(fileInfo.getDataDownloadedStringInMB());
+            }
+        }
     }
 }
 

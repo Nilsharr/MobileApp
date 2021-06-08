@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.app.R;
+import com.example.app.utils.Constants;
 import com.example.app.utils.Utilities;
 
 import java.util.HashMap;
@@ -85,7 +86,7 @@ public class GradesFormActivity extends AppCompatActivity {
                 if (isAllInputValid()) {
                     Intent intent = new Intent(GradesFormActivity.this, GradesSelectionActivity.class);
                     intent.putExtra("gradesAmount", Integer.parseInt(gradesAmountInput.getText().toString()));
-                    startActivityForResult(intent, 1);
+                    startActivityForResult(intent, Constants.GRADES_SELECTION_ACTIVITY_REQUEST_CODE);
                 } else {
                     Utilities.clearFocusAndHideKeyboard(findViewById(R.id.gradesFormLayout));
                 }
@@ -208,7 +209,7 @@ public class GradesFormActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
+        if (requestCode == Constants.GRADES_SELECTION_ACTIVITY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 // returned value of mean
                 meanValue = data.getDoubleExtra("meanValue", 0);
