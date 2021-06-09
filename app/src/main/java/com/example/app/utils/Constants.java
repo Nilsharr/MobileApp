@@ -1,10 +1,10 @@
 package com.example.app.utils;
 
 public abstract class Constants {
+    //todo delete this, text watcher in form activities
+
     public static final int GRADES_SELECTION_ACTIVITY_REQUEST_CODE = 1;
 
-    public static final String DB_NAME = "phone_db";
-    public static final int NUMBER_OF_THREADS = 4;
 
     public static final int ADD_PHONE_ACTIVITY_REQUEST_CODE = 2;
     public static final int EDIT_PHONE_ACTIVITY_REQUEST_CODE = 3;
@@ -16,9 +16,5 @@ public abstract class Constants {
     public static final String SAVED_COMPRESSED_DRAWING_BITMAP = "savedCompressedDrawingBitmap";
     public static final String SAVED_COMPRESSED_BACKGROUND_BITMAP = "savedCompressedBackgroundBitmap";
 
-    public static final String SAVED_FILE_DOWNLOAD_SIZE_VALUE_LABEL = "savedFileDownloadSizeValueLabel";
-    public static final String SAVED_FILE_DOWNLOAD_TYPE_VALUE_LABEL = "savedFileDownloadTypeValueLabel";
-    public static final String SAVED_FILE_DOWNLOAD_PROGRESS_VALUE_LABEL = "savedFileDownloadProgressValueLabel";
 
-    public static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 4;
 }

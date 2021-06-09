@@ -1,4 +1,4 @@
-package com.example.app.file_download_app;
+package com.example.app.file_download_app.services;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -20,6 +20,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.app.R;
 import com.example.app.file_download_app.activities.FileDownloadActivity;
+import com.example.app.file_download_app.models.FileInfo;
+import com.example.app.utils.Utilities;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -31,14 +33,20 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class FileDownloadService extends IntentService {
 
-    private static final String ACTION_FILE_DOWNLOAD = "com.example.app.file_download_app.actionDownload";
-    private static final String FILE_DOWNLOAD_URL_ADDRESS = "com.example.app.file_download_app.urlAddress";
+    private static final String ACTION_FILE_DOWNLOAD = "com.example.app.file_download_app.services.actionFileDownload";
+    private static final String FILE_DOWNLOAD_URL_ADDRESS = "com.example.app.file_download_app.services.fileDownloadUrlAddress";
+    public static final String FILE_DOWNLOAD_BROADCAST = "com.example.app.file_download_app.services.fileDownloadBroadcast";
+    public static final String FILE_DOWNLOAD_INFO = "com.example.app.file_download_app.services.fileDownloadInfo";
+    private static final String FILE_DOWNLOAD_CHANNEL_ID = "com.example.app.file_download_app.services.fileDownloadChannelID";
+
     private static final int FILE_DOWNLOAD_NOTIFICATION_ID = 1;
-    private static final String CHANNEL_ID = "channel";
     private static final int BLOCK_SIZE = 8 * 1024;
-    public static String BROADCAST = "com.example.app.file_download_app.receiver";
-    public static String SAVED_FILE = "savedfile";
-    private NotificationManagerCompat notificationManager;
+
+    private NotificationManagerCompat notificationManagerCompat;
+
+    public FileDownloadService() {
+        super(FileDownloadService.class.getSimpleName());
+    }
 
     public static void startService(Context context, String urlAddress) {
         Intent intent = new Intent(context, FileDownloadService.class).setAction(ACTION_FILE_DOWNLOAD);
@@ -46,13 +54,9 @@ public class FileDownloadService extends IntentService {
         context.startService(intent);
     }
 
-    public FileDownloadService() {
-        super("FileDownloadService");
-    }
-
     private void sendBroadcast(@Nullable FileInfo fileInfo) {
-        Intent intent = new Intent(BROADCAST);
-        intent.putExtra(SAVED_FILE, fileInfo);
+        Intent intent = new Intent(FILE_DOWNLOAD_BROADCAST);
+        intent.putExtra(FILE_DOWNLOAD_INFO, fileInfo);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
@@ -60,9 +64,11 @@ public class FileDownloadService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         if (intent != null) {
             if (intent.getAction().equals(ACTION_FILE_DOWNLOAD)) {
+                // creating notification for file download
                 createNotificationChannel();
-                notificationManager.notify(FILE_DOWNLOAD_NOTIFICATION_ID, createNotification(0));
+                notificationManagerCompat.notify(FILE_DOWNLOAD_NOTIFICATION_ID, createDownloadInProgressNotification(0));
 
+                // creating connection
                 HttpsURLConnection connection = null;
                 FileOutputStream fileOutputStream = null;
                 FileInfo fileInfo = null;
@@ -70,39 +76,43 @@ public class FileDownloadService extends IntentService {
                     URL url = new URL(intent.getStringExtra(FILE_DOWNLOAD_URL_ADDRESS));
                     File downloadedFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + File.separator + new File(url.getFile()).getName());
 
+                    // deleting file in storage that has the same path and name as downloading file
                     if (downloadedFile.exists()) {
-                        boolean deleteResult = downloadedFile.delete();
+                        //noinspection ResultOfMethodCallIgnored
+                        downloadedFile.delete();
                     }
                     connection = (HttpsURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
 
                     fileInfo = new FileInfo(connection.getContentLength(), connection.getContentType().split("/")[1]);
 
-                    DataInputStream reader = new DataInputStream(connection.getInputStream());
+                    DataInputStream dataInputStream = new DataInputStream(connection.getInputStream());
                     fileOutputStream = new FileOutputStream(downloadedFile.getPath());
                     byte[] buffer = new byte[BLOCK_SIZE];
-                    int bytesRead, totalBytesDownloaded = 0, currentPercent, previousPercent = -1;
-                    while ((bytesRead = reader.read(buffer)) > 0) {
+                    int bytesRead, totalBytesRead = 0, currentPercent, previousPercent = -1;
+                    while ((bytesRead = dataInputStream.read(buffer)) > 0) {
                         fileOutputStream.write(buffer, 0, bytesRead);
-                        totalBytesDownloaded += bytesRead;
+                        totalBytesRead += bytesRead;
 
-                        currentPercent = (int) (100 * (totalBytesDownloaded / (double) connection.getContentLength()));
-                        if (previousPercent != currentPercent) {
-                            Log.d("d", String.valueOf((int) (100 * (totalBytesDownloaded / (double) connection.getContentLength()))));
+                        // updating notification and sending broadcast
+                        // only when progress percent has changed
+                        currentPercent = Utilities.percentOfNumber(totalBytesRead, fileInfo.getSize());
+                        if (currentPercent != previousPercent) {
                             previousPercent = currentPercent;
-                            fileInfo.setDataDownloaded(totalBytesDownloaded);
+                            fileInfo.setDataDownloaded(totalBytesRead);
                             sendBroadcast(fileInfo);
-                            notificationManager.notify(FILE_DOWNLOAD_NOTIFICATION_ID, createNotification(currentPercent));
+                            notificationManagerCompat.notify(FILE_DOWNLOAD_NOTIFICATION_ID, createDownloadInProgressNotification(currentPercent));
                         }
-                        //Log.d("hmm", bytesRead + "  " + totalBytesDownloaded + "  " + connection.getContentLength());
                     }
 
                     fileInfo.setResult(FileInfo.DOWNLOAD_SUCCESSFUL);
-                    notificationManager.notify(FILE_DOWNLOAD_NOTIFICATION_ID, createFinishNotification(downloadedFile));
-                    Log.d("hmm", "download complete");
+                    notificationManagerCompat.notify(FILE_DOWNLOAD_NOTIFICATION_ID, createDownloadSuccessfulNotification(downloadedFile));
                 } catch (Exception e) {
+                    // dismissing notification and sending broadcast with result of download as error
+                    notificationManagerCompat.cancelAll();
                     if (fileInfo != null) {
                         fileInfo.setResult(FileInfo.DOWNLOAD_ERROR);
+                        sendBroadcast(fileInfo);
                     }
                     e.printStackTrace();
                 } finally {
@@ -118,24 +128,26 @@ public class FileDownloadService extends IntentService {
                     }
                 }
             } else {
-                Log.e("int", "unknown action");
+                Log.e("action", "unknown action");
             }
         }
     }
 
+    // creating notification channel if android version is >= 8
     private void createNotificationChannel() {
-        notificationManager = NotificationManagerCompat.from(this);
+        notificationManagerCompat = NotificationManagerCompat.from(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Name", NotificationManager.IMPORTANCE_LOW);
-            notificationManager.createNotificationChannel(channel);
+            NotificationChannel notificationChannel = new NotificationChannel(FILE_DOWNLOAD_CHANNEL_ID, getString(R.string.notification_channel_name_download), NotificationManager.IMPORTANCE_LOW);
+            notificationManagerCompat.createNotificationChannel(notificationChannel);
         }
     }
 
-    private Notification createNotification(int progress) {
+    private Notification createDownloadInProgressNotification(int progress) {
+        // sending user to file download activity on notification click
         Intent intent = new Intent(this, FileDownloadActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, FILE_DOWNLOAD_CHANNEL_ID)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
                 .setSmallIcon(android.R.drawable.stat_sys_download)
@@ -147,21 +159,22 @@ public class FileDownloadService extends IntentService {
         return notificationBuilder.build();
     }
 
+    private Notification createDownloadSuccessfulNotification(File downloadedFile) {
 
-    private Notification createFinishNotification(File downloadedFile) {
-
+        // getting type of downloaded file
         MimeTypeMap map = MimeTypeMap.getSingleton();
         String fileExtension = MimeTypeMap.getFileExtensionFromUrl(downloadedFile.getName());
         String fileType = map.getMimeTypeFromExtension(fileExtension);
         if (fileType == null) {
             fileType = "/*/";
         }
-        Intent intentOpenFile = new Intent(Intent.ACTION_VIEW).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intentOpenFile.setDataAndType(FileProvider.getUriForFile(this, this.getApplicationContext().getPackageName() + ".provider", downloadedFile), fileType);
-        PendingIntent pendingIntentOpenFile = PendingIntent.getActivity(this, 0, intentOpenFile, PendingIntent.FLAG_UPDATE_CURRENT);
+        // opening downloaded file on notification click
+        Intent intent = new Intent(Intent.ACTION_VIEW).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setDataAndType(FileProvider.getUriForFile(this, this.getApplicationContext().getPackageName() + ".provider", downloadedFile), fileType);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentIntent(pendingIntentOpenFile)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, FILE_DOWNLOAD_CHANNEL_ID)
+                .setContentIntent(pendingIntent)
                 .setOngoing(false)
                 .setAutoCancel(true)
                 .setSmallIcon(android.R.drawable.stat_sys_download_done)
@@ -176,6 +189,6 @@ public class FileDownloadService extends IntentService {
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
-        notificationManager.cancelAll();
+        notificationManagerCompat.cancelAll();
     }
 }

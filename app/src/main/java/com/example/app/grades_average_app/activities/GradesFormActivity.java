@@ -58,7 +58,7 @@ public class GradesFormActivity extends AppCompatActivity {
         meanResultMessage = findViewById(R.id.meanResult);
 
         // listener set on screen that on screen touch clears focus of current input field and closes keyboard
-        findViewById(R.id.gradesFormLayout).setOnTouchListener(((view, event) -> {
+        findViewById(R.id.gradesFormConstraintLayout).setOnTouchListener(((view, event) -> {
             Utilities.clearFocusAndHideKeyboard(view);
             view.performClick();
             return false;
@@ -88,7 +88,7 @@ public class GradesFormActivity extends AppCompatActivity {
                     intent.putExtra("gradesAmount", Integer.parseInt(gradesAmountInput.getText().toString()));
                     startActivityForResult(intent, Constants.GRADES_SELECTION_ACTIVITY_REQUEST_CODE);
                 } else {
-                    Utilities.clearFocusAndHideKeyboard(findViewById(R.id.gradesFormLayout));
+                    Utilities.clearFocusAndHideKeyboard(findViewById(R.id.gradesFormConstraintLayout));
                 }
             }
             // if value of mean was calculated

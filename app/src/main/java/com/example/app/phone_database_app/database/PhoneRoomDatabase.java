@@ -8,13 +8,14 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.app.utils.Constants;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Phone.class}, version = 1, exportSchema = false)
 public abstract class PhoneRoomDatabase extends RoomDatabase {
+    private static final String DB_NAME = "phone_db";
+    private static final int NUMBER_OF_THREADS = 4;
+
     public abstract PhoneDao phoneDao();
 
     private static volatile PhoneRoomDatabase instance;
@@ -23,7 +24,7 @@ public abstract class PhoneRoomDatabase extends RoomDatabase {
         if (instance == null) {
             synchronized (PhoneRoomDatabase.class) {
                 if (instance == null) {
-                    instance = Room.databaseBuilder(context.getApplicationContext(), PhoneRoomDatabase.class, Constants.DB_NAME).addCallback(sRoomDatabaseCallback).fallbackToDestructiveMigration().build();
+                    instance = Room.databaseBuilder(context.getApplicationContext(), PhoneRoomDatabase.class, DB_NAME).addCallback(sRoomDatabaseCallback).fallbackToDestructiveMigration().build();
                 }
             }
         }
@@ -31,7 +32,7 @@ public abstract class PhoneRoomDatabase extends RoomDatabase {
     }
 
     // to run queries in the background
-    static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(Constants.NUMBER_OF_THREADS);
+    static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     private static final RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override

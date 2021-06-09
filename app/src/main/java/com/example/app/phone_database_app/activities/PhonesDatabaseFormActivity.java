@@ -62,7 +62,7 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
         phoneManufacturerInput.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, manufacturers));
 
         // Allows to lose focus on view and closes keyboard on screen touch
-        findViewById(R.id.phonesDatabaseFormLayout).setOnTouchListener((view, event) -> {
+        findViewById(R.id.phonesDatabaseFormConstraintLayout).setOnTouchListener((view, event) -> {
             Utilities.clearFocusAndHideKeyboard(view);
             view.performClick();
             return false;
@@ -99,7 +99,7 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
         // else shows toast with error message
         findViewById(R.id.phoneWebsiteButton).setOnClickListener(view -> {
             String urlAddress = phoneWebsiteInput.getText().toString();
-            if (Patterns.WEB_URL.matcher(urlAddress).matches()) {
+            if (Utilities.isURLStringValid(urlAddress)) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Utilities.formattedURLString(urlAddress))));
             } else {
                 Toast.makeText(this, getString(R.string.error_phone_website_input_invalid), Toast.LENGTH_SHORT).show();
@@ -131,7 +131,7 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
                 Toast.makeText(this, getString(R.string.message_item_saved), Toast.LENGTH_SHORT).show();
                 finish();
             } else {
-                Utilities.clearFocusAndHideKeyboard(findViewById(R.id.phonesDatabaseFormLayout));
+                Utilities.clearFocusAndHideKeyboard(findViewById(R.id.phonesDatabaseFormConstraintLayout));
                 Toast.makeText(this, getString(R.string.message_entered_phone_data_invalid), Toast.LENGTH_SHORT).show();
             }
         });
@@ -143,7 +143,7 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
         return phoneManufacturerInput.getText().toString().matches("^[A-Z][A-Za-z .]+$") &&
                 phoneModelInput.getText().toString().matches("^[A-Z][A-Za-z .\\d/+]+$") &&
                 phoneAndroidVersionInput.getText().toString().matches("^\\d+(?:\\.\\d+)?$") &&
-                Patterns.WEB_URL.matcher(phoneWebsiteInput.getText().toString()).matches();
+                Utilities.isURLStringValid(phoneWebsiteInput.getText().toString());
     }
 
     //

@@ -23,6 +23,7 @@
     <string name="information_cancel">Cancel</string>
     <string name="information_ready">Ready</string>
     <string name="information_no_data">No data</string>
+    <string name="information_no_internet_connection">No internet connection</string>
     <string name="message_item_saved">Saved successfully</string>
     <string name="message_item_deleted">Successfully deleted</string>
     <string name="message_item_deleted_all">Successfully deleted all</string>
@@ -104,13 +105,16 @@
     <string name="label_file_download_address">Address:</string>
     <string name="label_file_download_size">File size:</string>
     <string name="label_file_download_type">File type:</string>
-    <string name="label_file_download_progress">Downloaded [%]:</string>
+    <string name="label_file_download_progress">Downloaded:</string>
     <string name="button_file_download_information">Download information</string>
     <string name="button_file_download">Download file</string>
     <string name="error_file_download_address_input_invalid">Entered download address is invalid</string>
     <string name="notification_file_download_title">File Download</string>
     <string name="notification_file_download_text_in_progress">Download in progress</string>
     <string name="notification_file_download_text_completed">Download completed</string>
+    <string name="message_cannot_download_without_permission">Cannot download file without permission</string>
+    <string name="message_error_while_downloading_file">Error while downloading file</string>
+    <string name="notification_channel_name_download">Download</string>
     <!--activity_file_download-->
 
 </resources>

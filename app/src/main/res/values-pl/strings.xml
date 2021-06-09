@@ -23,6 +23,7 @@
     <string name="information_cancel">Anuluj</string>
     <string name="information_ready">Gotowe</string>
     <string name="information_no_data">Brak danych</string>
+    <string name="information_no_internet_connection">Brak połączenia z internetem</string>
     <string name="message_item_saved">Zapisano pomyślnie</string>
     <string name="message_item_deleted">Pomyślnie usunięto</string>
     <string name="message_item_deleted_all">Pomyślnie usunięto wszystko</string>
@@ -72,13 +73,16 @@
     <string name="label_file_download_address">Adres:</string>
     <string name="label_file_download_size">Rozmiar pliku:</string>
     <string name="label_file_download_type">Typ pliku:</string>
-    <string name="label_file_download_progress">Pobrano [%]:</string>
+    <string name="label_file_download_progress">Pobrano:</string>
     <string name="button_file_download_information">Pobierz informacje</string>
     <string name="button_file_download">Pobierz plik</string>
     <string name="error_file_download_address_input_invalid">Wprowadzony adres pobierania jest nieprawidłowy</string>
     <string name="notification_file_download_title">Pobieranie pliku</string>
     <string name="notification_file_download_text_in_progress">Pobieranie w toku</string>
     <string name="notification_file_download_text_completed">Pobieranie zakończone </string>
+    <string name="message_cannot_download_without_permission">Nie można pobrać pliku bez pozwolenia</string>
+    <string name="message_error_while_downloading_file">Błąd podczas pobierania pliku</string>
+    <string name="notification_channel_name_download">Pobieranie</string>
     <!--activity_file_download-->
 
 </resources>

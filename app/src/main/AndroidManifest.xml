@@ -46,7 +46,7 @@
             android:launchMode="singleTop" />
 
         <service
-            android:name="com.example.app.file_download_app.FileDownloadService"
+            android:name="com.example.app.file_download_app.services.FileDownloadService"
             android:exported="false" />
 
         <provider

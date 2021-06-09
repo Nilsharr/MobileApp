@@ -1,4 +1,4 @@
-package com.example.app.file_download_app;
+package com.example.app.file_download_app.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -13,34 +13,30 @@ public class FileInfo implements Parcelable {
     public static final int DOWNLOAD_IN_PROGRESS = 1;
     public static final int DOWNLOAD_ERROR = 2;
 
-    private int fileSize;
-    private String fileType;
+    private int size;
+    private String type;
     private int dataDownloaded;
     private int result = DOWNLOAD_IN_PROGRESS;
 
-
-    public FileInfo() {
+    public FileInfo(int size, String type) {
+        this.size = size;
+        this.type = type;
     }
 
-    public FileInfo(int fileSize, String fileType) {
-        this.fileSize = fileSize;
-        this.fileType = fileType;
+    public int getSize() {
+        return size;
     }
 
-    public int getFileSize() {
-        return fileSize;
+    public void setSize(int size) {
+        this.size = size;
     }
 
-    public void setFileSize(int fileSize) {
-        this.fileSize = fileSize;
+    public String getType() {
+        return type;
     }
 
-    public String getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getDataDownloaded() {
@@ -59,11 +55,11 @@ public class FileInfo implements Parcelable {
         this.result = result;
     }
 
-    public String getFileSizeStringInMB() {
-        return String.format(Locale.getDefault(), "%.2f MB", Utilities.bytesToMegaBytes(fileSize));
+    public String getFileSizeInMBString() {
+        return String.format(Locale.getDefault(), "%.2f MB", Utilities.bytesToMegaBytes(size));
     }
 
-    public String getDataDownloadedStringInMB() {
+    public String getDataDownloadedInMBString() {
         return String.format(Locale.getDefault(), "%.2f MB", Utilities.bytesToMegaBytes(dataDownloaded));
     }
 
@@ -74,22 +70,15 @@ public class FileInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.fileSize);
-        dest.writeString(this.fileType);
+        dest.writeInt(this.size);
+        dest.writeString(this.type);
         dest.writeInt(this.dataDownloaded);
         dest.writeInt(this.result);
     }
 
-    public void readFromParcel(Parcel source) {
-        this.fileSize = source.readInt();
-        this.fileType = source.readString();
-        this.dataDownloaded = source.readInt();
-        this.result = source.readInt();
-    }
-
     protected FileInfo(Parcel in) {
-        this.fileSize = in.readInt();
-        this.fileType = in.readString();
+        this.size = in.readInt();
+        this.type = in.readString();
         this.dataDownloaded = in.readInt();
         this.result = in.readInt();
     }
