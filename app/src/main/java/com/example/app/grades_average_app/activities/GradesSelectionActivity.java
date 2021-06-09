@@ -19,6 +19,9 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class GradesSelectionActivity extends AppCompatActivity {
+
+    private static final String SAVED_GRADES_ARRAY_STATE = "com.example.app.grades_average_app.activities.savedGradesArrayState";
+
     // array that saves value of checked grade
     private int[] gradesArray;
 
@@ -39,10 +42,10 @@ public class GradesSelectionActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState != null) {
-            gradesArray = savedInstanceState.getIntArray("gradesArray");
+            gradesArray = savedInstanceState.getIntArray(SAVED_GRADES_ARRAY_STATE);
         } else {
             // initializing array to size of value (gradesAmountInput) received from previous activity
-            gradesArray = new int[getIntent().getIntExtra("gradesAmount", 0)];
+            gradesArray = new int[getIntent().getIntExtra(GradesFormActivity.GRADES_AMOUNT, 0)];
             // setting initial values to 2
             Arrays.fill(gradesArray, 0);
         }
@@ -66,21 +69,21 @@ public class GradesSelectionActivity extends AppCompatActivity {
                 return;
             }
             Intent intent = new Intent();
-            intent.putExtra("meanValue", countMean());
+            intent.putExtra(GradesFormActivity.MEAN_VALUE_FROM_ACTIVITY_RESULT, countMean());
             setResult(Activity.RESULT_OK, intent);
             finish();
         });
+    }
+
+    // method to calculate mean of given grades
+    private double countMean() {
+        return Arrays.stream(gradesArray).average().orElse(Double.NaN);
     }
 
     // handling screen orientation change
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putIntArray("gradesArray", gradesArray);
-    }
-
-    // method to calculate mean of given grades
-    private double countMean() {
-        return Arrays.stream(gradesArray).average().orElse(Double.NaN);
+        outState.putIntArray(SAVED_GRADES_ARRAY_STATE, gradesArray);
     }
 }

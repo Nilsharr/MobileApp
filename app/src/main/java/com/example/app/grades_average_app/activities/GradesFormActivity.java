@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.app.R;
-import com.example.app.utils.Constants;
 import com.example.app.utils.Utilities;
 
 import java.util.HashMap;
@@ -24,6 +23,13 @@ import java.util.Objects;
 
 
 public class GradesFormActivity extends AppCompatActivity {
+
+    private static final int GRADES_SELECTION_ACTIVITY_REQUEST_CODE = 1;
+
+    public static final String GRADES_AMOUNT = "com.example.app.grades_average_app.activities.gradesAmount";
+    public static final String MEAN_VALUE_FROM_ACTIVITY_RESULT = "com.example.app.grades_average_app.activities.meanValueFromActivityResult";
+    private static final String SAVED_MEAN_VALUE_STATE = "com.example.app.grades_average_app.activities.savedMeanValueState";
+    private static final String SAVED_PROCEED_BUTTON_VISIBILITY_STATE = "com.example.app.grades_average_app.activities.savedProceedButtonVisibilityState";
 
     private EditText gradesNameInput;
     private EditText gradesSurnameInput;
@@ -85,8 +91,8 @@ public class GradesFormActivity extends AppCompatActivity {
             if (meanValue == 0) {
                 if (isAllInputValid()) {
                     Intent intent = new Intent(GradesFormActivity.this, GradesSelectionActivity.class);
-                    intent.putExtra("gradesAmount", Integer.parseInt(gradesAmountInput.getText().toString()));
-                    startActivityForResult(intent, Constants.GRADES_SELECTION_ACTIVITY_REQUEST_CODE);
+                    intent.putExtra(GRADES_AMOUNT, Integer.parseInt(gradesAmountInput.getText().toString()));
+                    startActivityForResult(intent, GRADES_SELECTION_ACTIVITY_REQUEST_CODE);
                 } else {
                     Utilities.clearFocusAndHideKeyboard(findViewById(R.id.gradesFormConstraintLayout));
                 }
@@ -176,43 +182,14 @@ public class GradesFormActivity extends AppCompatActivity {
         }
     };
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putDouble("meanValue", meanValue);
-        outState.putInt("proceedButtonVisibility", gradesProceedButton.getVisibility());
-    }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        meanValue = savedInstanceState.getDouble("meanValue");
-        gradesProceedButton.setVisibility(savedInstanceState.getInt("proceedButtonVisibility"));
-
-        // if value of mean was calculated
-        if (meanValue != 0) {
-            // setting input fields to not enabled
-            gradesNameInput.setEnabled(false);
-            gradesSurnameInput.setEnabled(false);
-            gradesAmountInput.setEnabled(false);
-            // setting text and visibility of message
-            meanResultMessage.setText(String.format(getString(R.string.message_mean_result), meanValue));
-            meanResultMessage.setVisibility(View.VISIBLE);
-            // setting text of button based on value of mean
-            gradesProceedButton.setText(meanValue >= 3 ? R.string.button_grades_passed : R.string.button_grades_failed);
-        }
-    }
-
     // getting the value of mean from given grades from started activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.GRADES_SELECTION_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == GRADES_SELECTION_ACTIVITY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 // returned value of mean
-                meanValue = data.getDoubleExtra("meanValue", 0);
+                meanValue = data.getDoubleExtra(MEAN_VALUE_FROM_ACTIVITY_RESULT, 0);
                 // setting input fields to not enabled
                 gradesNameInput.setEnabled(false);
                 gradesSurnameInput.setEnabled(false);
@@ -225,6 +202,35 @@ public class GradesFormActivity extends AppCompatActivity {
                 // setting text of button based on value of mean
                 gradesProceedButton.setText(meanValue >= 3 ? R.string.button_grades_passed : R.string.button_grades_failed);
             }
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putDouble(SAVED_MEAN_VALUE_STATE, meanValue);
+        outState.putInt(SAVED_PROCEED_BUTTON_VISIBILITY_STATE, gradesProceedButton.getVisibility());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        meanValue = savedInstanceState.getDouble(SAVED_MEAN_VALUE_STATE);
+        gradesProceedButton.setVisibility(savedInstanceState.getInt(SAVED_PROCEED_BUTTON_VISIBILITY_STATE));
+
+        // if value of mean was calculated
+        if (meanValue != 0) {
+            // setting input fields to not enabled
+            gradesNameInput.setEnabled(false);
+            gradesSurnameInput.setEnabled(false);
+            gradesAmountInput.setEnabled(false);
+            // setting text and visibility of message
+            meanResultMessage.setText(String.format(getString(R.string.message_mean_result), meanValue));
+            meanResultMessage.setVisibility(View.VISIBLE);
+            // setting text of button based on value of mean
+            gradesProceedButton.setText(meanValue >= 3 ? R.string.button_grades_passed : R.string.button_grades_failed);
         }
     }
 }
