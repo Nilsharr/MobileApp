@@ -15,7 +15,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.R;
-import com.example.app.utils.Constants;
 import com.example.app.drawing_app.views.DrawingSurface;
 
 import java.io.ByteArrayOutputStream;
@@ -25,6 +24,12 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 
 
 public class DrawingActivity extends AppCompatActivity {
+
+    private static final String SAVED_PAINT_COLOR_STATE = "com.example.app.drawing_app.activities.savedPaintColorState";
+    private static final String SAVED_PAINT_WIDTH_STATE = "com.example.app.drawing_app.activities.savedPaintWidthState";
+    private static final String SAVED_COMPRESSED_DRAWING_BITMAP_STATE = "com.example.app.drawing_app.activities.savedCompressedDrawingBitmapState";
+    private static final String SAVED_COMPRESSED_BACKGROUND_BITMAP_STATE = "com.example.app.drawing_app.activities.savedCompressedBackgroundBitmapState";
+
     private DrawingSurface surface;
 
     // Creating menu
@@ -155,25 +160,25 @@ public class DrawingActivity extends AppCompatActivity {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         surface.getDrawingBitmap().compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] compDrawingBitmap = stream.toByteArray();
-        outState.putByteArray(Constants.SAVED_COMPRESSED_DRAWING_BITMAP, compDrawingBitmap);
+        outState.putByteArray(SAVED_COMPRESSED_DRAWING_BITMAP_STATE, compDrawingBitmap);
 
         // compressing backgroundBitmap to byte array and saving to bundle
         ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
         surface.getBackgroundBitmap().compress(Bitmap.CompressFormat.PNG, 100, stream2);
         byte[] compBackgroundBitmap = stream2.toByteArray();
-        outState.putByteArray(Constants.SAVED_COMPRESSED_BACKGROUND_BITMAP, compBackgroundBitmap);
+        outState.putByteArray(SAVED_COMPRESSED_BACKGROUND_BITMAP_STATE, compBackgroundBitmap);
 
-        outState.putInt(Constants.SAVED_PAINT_COLOR, surface.getPaintColor());
-        outState.putInt(Constants.SAVED_PAINT_WIDTH, surface.getPaintWidth());
+        outState.putInt(SAVED_PAINT_COLOR_STATE, surface.getPaintColor());
+        outState.putInt(SAVED_PAINT_WIDTH_STATE, surface.getPaintWidth());
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        surface.setDrawingBitmap(savedInstanceState.getByteArray(Constants.SAVED_COMPRESSED_DRAWING_BITMAP));
-        surface.setBackgroundBitmap(savedInstanceState.getByteArray(Constants.SAVED_COMPRESSED_BACKGROUND_BITMAP));
-        surface.setPaintColor(savedInstanceState.getInt(Constants.SAVED_PAINT_COLOR));
-        surface.setPaintWidth(savedInstanceState.getInt(Constants.SAVED_PAINT_WIDTH));
+        surface.setDrawingBitmap(savedInstanceState.getByteArray(SAVED_COMPRESSED_DRAWING_BITMAP_STATE));
+        surface.setBackgroundBitmap(savedInstanceState.getByteArray(SAVED_COMPRESSED_BACKGROUND_BITMAP_STATE));
+        surface.setPaintColor(savedInstanceState.getInt(SAVED_PAINT_COLOR_STATE));
+        surface.setPaintWidth(savedInstanceState.getInt(SAVED_PAINT_WIDTH_STATE));
     }
 }

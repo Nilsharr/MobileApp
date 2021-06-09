@@ -31,16 +31,19 @@ import com.example.app.phone_database_app.database.Phone;
 import com.example.app.phone_database_app.views.PhoneViewModel;
 import com.example.app.phone_database_app.selection_tracker.PhoneItemDetailsLookup;
 import com.example.app.phone_database_app.selection_tracker.PhoneItemKeyProvider;
-import com.example.app.utils.Constants;
 
 import java.util.List;
 import java.util.Objects;
 
-// to do
-// edit on long click
-// edit to swipe on right/left?
 
 public class PhonesDatabaseBrowsingActivity extends AppCompatActivity {
+
+    private static final int ADD_PHONE_ACTIVITY_REQUEST_CODE = 2;
+    private static final int EDIT_PHONE_ACTIVITY_REQUEST_CODE = 3;
+
+    public static final String PHONE_OBJECT_FROM_ACTIVITY_RESULT = "com.example.app.phone_database_app.activities.phoneObjectFromActivityResult";
+    public static final String INTENT_PHONE_TO_EDIT = "com.example.app.phone_database_app.activities.intentPhoneToEdit";
+
     private PhoneViewModel mPhoneViewModel;
     private PhoneAdapter mPhoneAdapter;
     private SelectionTracker<Long> mSelectionTracker;
@@ -64,7 +67,7 @@ public class PhonesDatabaseBrowsingActivity extends AppCompatActivity {
         }
         // Adding phone to database
         if (itemId == R.id.addPhoneToDatabaseMenuButton) {
-            startActivityForResult(new Intent(PhonesDatabaseBrowsingActivity.this, PhonesDatabaseFormActivity.class), Constants.ADD_PHONE_ACTIVITY_REQUEST_CODE);
+            startActivityForResult(new Intent(PhonesDatabaseBrowsingActivity.this, PhonesDatabaseFormActivity.class), ADD_PHONE_ACTIVITY_REQUEST_CODE);
             return true;
         }
         // Deleting phone from database
@@ -83,8 +86,8 @@ public class PhonesDatabaseBrowsingActivity extends AppCompatActivity {
                     phone = phoneList.get(mPhoneItemKeyProvider.getPosition(phoneId));
                 }
                 Intent intent = new Intent(PhonesDatabaseBrowsingActivity.this, PhonesDatabaseFormActivity.class);
-                intent.putExtra(Constants.INTENT_PHONE_TO_EDIT_OBJECT, phone);
-                startActivityForResult(intent, Constants.EDIT_PHONE_ACTIVITY_REQUEST_CODE);
+                intent.putExtra(INTENT_PHONE_TO_EDIT, phone);
+                startActivityForResult(intent, EDIT_PHONE_ACTIVITY_REQUEST_CODE);
             }
             return true;
         }
@@ -257,15 +260,15 @@ public class PhonesDatabaseBrowsingActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.ADD_PHONE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == ADD_PHONE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             if (data != null) {
-                Phone phone = data.getExtras().getParcelable(Constants.INTENT_PHONE_OBJECT);
+                Phone phone = data.getExtras().getParcelable(PHONE_OBJECT_FROM_ACTIVITY_RESULT);
                 mPhoneViewModel.insert(phone);
             }
         }
-        if (requestCode == Constants.EDIT_PHONE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == EDIT_PHONE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             if (data != null) {
-                Phone phone = data.getExtras().getParcelable(Constants.INTENT_PHONE_OBJECT);
+                Phone phone = data.getExtras().getParcelable(PHONE_OBJECT_FROM_ACTIVITY_RESULT);
                 mPhoneViewModel.update(phone);
             }
         }

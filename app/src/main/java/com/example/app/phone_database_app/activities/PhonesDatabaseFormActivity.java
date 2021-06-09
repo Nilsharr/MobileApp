@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.R;
 import com.example.app.phone_database_app.database.Phone;
-import com.example.app.utils.Constants;
 import com.example.app.utils.Utilities;
 
 import java.util.HashMap;
@@ -80,8 +79,8 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
         // and phone object is passed from previous activity
         // sets EditText fields to given phone values
         // and cursor to suitable position
-        if (getIntent().hasExtra(Constants.INTENT_PHONE_TO_EDIT_OBJECT)) {
-            phone = getIntent().getParcelableExtra(Constants.INTENT_PHONE_TO_EDIT_OBJECT);
+        if (getIntent().hasExtra(PhonesDatabaseBrowsingActivity.INTENT_PHONE_TO_EDIT)) {
+            phone = getIntent().getParcelableExtra(PhonesDatabaseBrowsingActivity.INTENT_PHONE_TO_EDIT);
             phoneManufacturerInput.setText(phone.getManufacturer());
             phoneManufacturerInput.setSelection(phone.getManufacturer().length());
             phoneModelInput.setText(phone.getModel());
@@ -126,7 +125,7 @@ public class PhonesDatabaseFormActivity extends AppCompatActivity {
                     phone.setWebAddress(phoneWebsiteInput.getText().toString());
                 }
                 Intent replyIntent = new Intent();
-                replyIntent.putExtra(Constants.INTENT_PHONE_OBJECT, phone);
+                replyIntent.putExtra(PhonesDatabaseBrowsingActivity.PHONE_OBJECT_FROM_ACTIVITY_RESULT, phone);
                 setResult(RESULT_OK, replyIntent);
                 Toast.makeText(this, getString(R.string.message_item_saved), Toast.LENGTH_SHORT).show();
                 finish();
